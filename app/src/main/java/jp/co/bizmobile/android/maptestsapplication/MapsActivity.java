@@ -5,10 +5,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -16,6 +18,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -25,16 +30,29 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.wearable.DataApi;
+import com.google.android.gms.wearable.DataEvent;
+import com.google.android.gms.wearable.DataEventBuffer;
+import com.google.android.gms.wearable.DataItem;
+import com.google.android.gms.wearable.DataMap;
+import com.google.android.gms.wearable.DataMapItem;
+import com.google.android.gms.wearable.PutDataMapRequest;
+import com.google.android.gms.wearable.PutDataRequest;
+import com.google.android.gms.wearable.Wearable;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback{
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,DataApi.DataListener {
 
     private RequestQueue mQueue;
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
@@ -46,11 +64,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LatLng origin;
     LatLng dest;
     SharedPreferences sharedPreferences = null;
+    String stockStepsFirstPolylinePoint;
+    int requestTime;
+    private GoogleApiClient mGoogleApiClient;
+    private static final String TAG = "MainActivity";
+    private String[] Html_instructionsList;
+    String legsDistanceText;
+    String legsDurationText;
+    String stepsFirstDurationText;
+    String stepsFirstDistanceText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         setUpMapIfNeeded();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Wearable.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
 
 
         mMap.setMyLocationEnabled(true);
@@ -61,7 +95,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onMyLocationChange(Location location) {
                 Log.d("push", "pushbutton");
-                origin = new LatLng(location.getLatitude(),location.getLongitude());
+                origin = new LatLng(location.getLatitude(), location.getLongitude());
                 Log.d("origin", "" + origin);
                 mMyLocation = location;
                 if (mMyLocation != null && mMyLocationCentering == false) { // 一度だけ現在地を画面中央に表示する
@@ -90,12 +124,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.addMarker(options);
 
                 Log.d("origin", "" + latLng.latitude);
-                Log.d("dest",""+latLng.longitude);
+                Log.d("dest", "" + latLng.longitude);
                 root();
             }
         });
 
 
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart()");
+        mGoogleApiClient.connect();
     }
 
 
@@ -112,19 +152,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                         Polyline line = null;
 
+
                         try {
+                            //String status = response.getString("status");
+                            //if(response.getString("status") == "OK") {
+                            //    Log.d("status",response.getString("status"));
+
+
                             gson = new Gson();
                             String jsonInstanceString = gson.toJson(response);
                             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
                             //SharedPreferences data = getSharedPreferences("directionDataSave", Context.MODE_PRIVATE);
-                            sharedPreferences.edit().putString("directionData",jsonInstanceString).apply();
+                            sharedPreferences.edit().putString("directionData", jsonInstanceString).apply();
 
                             // Tranform the string into a json object
                             //final JSONObject json = new JSONObject(result);
                             //Log.d("response",response.toString(4));
                             ParceJson parceJson = new ParceJson();
-                            parceJson.parce(getApplicationContext(),response);
+                            parceJson.parce(getApplicationContext(), response);
 
                             //String stepsFirstDistance = parceJson.stepsFirstDistance.getString("test");
 
@@ -133,7 +179,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                            JSONObject overviewPolylines = routes
 //                                    .getJSONObject("overview_polyline");
 //
-                            String overviewPolylines = sharedPreferences.getString("overviewPolylines",null);
+                            String overviewPolylines = sharedPreferences.getString("overviewPolylines", null);
                             //String encodedString = overviewPolylines.getString("points");
                             List<LatLng> list = decodePoly(overviewPolylines);
 
@@ -145,10 +191,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                                 new LatLng(dest.latitude, dest.longitude))
                                         .width(5).color(Color.BLUE).geodesic(true));
                             }
+//                            }else{
+//                                Log.d("status",response.getString("status"));
+//                            }
 
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+
+                        sendWear();
+                        startTimer();
 
 
 //                        try {
@@ -165,7 +217,114 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 }
         ));
+        Log.d("test", "test");
+
     }
+
+
+    void startTimer(){
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+
+        int stepsFirstDrationValue = sharedPreferences.getInt("stepsFirstDrationValue", 0);
+
+        if (stepsFirstDrationValue <= 120){
+
+            requestTime = stepsFirstDrationValue;
+            Log.d("stepsFirstDrationValue","sonomama"+stepsFirstDrationValue);
+
+        }else{
+
+            requestTime = stepsFirstDrationValue / 2;
+            Log.d("stepsFirstDrationValue","hanbun"+stepsFirstDrationValue);
+        }
+        requestTime *= 1000;
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                root();
+                Log.d("handler", "startroot");
+                //Toast.makeText(context, String.valueOf(++count), Toast.LENGTH_SHORT).show();
+            }
+        }, requestTime);
+
+    }
+
+
+    void sendWear(){
+        Log.d("startSendWear","startSendWear");
+        gson = new Gson();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String str = sharedPreferences.getString("Html_instructionsList",null);
+        Html_instructionsList = gson.fromJson(str, String[].class);
+
+        legsDistanceText = sharedPreferences.getString("legsDistanceText", null);
+        legsDurationText = sharedPreferences.getString("legsDurationText", null);
+
+        stepsFirstDurationText = sharedPreferences.getString("stepsFirstDistanceText",null);
+        stepsFirstDistanceText = sharedPreferences.getString("stepsFirstDistanceText",null);
+
+
+
+        for(int i= 0 ; i<Html_instructionsList.length - 1; i++) {
+            Log.d("Html_instructionsList", Html_instructionsList[i]);
+
+        }
+        Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("handler", "sendWear");
+                PutDataMapRequest mapReq = PutDataMapRequest.create("/path");
+                mapReq.getDataMap().putStringArray("Html_instructionsList", Html_instructionsList);
+
+                mapReq.getDataMap().putString("legsDistanceText", legsDistanceText);
+                mapReq.getDataMap().putString("legsDurationText", legsDurationText);
+                mapReq.getDataMap().putString("stepsFirstDurationText", stepsFirstDurationText);
+                mapReq.getDataMap().putString("stepsFirstDistanceText", stepsFirstDistanceText);
+
+
+                PutDataRequest request = mapReq.asPutDataRequest();
+                if (!mGoogleApiClient.isConnected()) {
+                    return;
+                }
+                Wearable.DataApi.putDataItem(mGoogleApiClient, request)
+                        .setResultCallback(new ResultCallback<DataApi.DataItemResult>() {
+                            @Override
+                            public void onResult(DataApi.DataItemResult dataItemResult) {
+                                if (!dataItemResult.getStatus().isSuccess()) {
+                                    Log.e(TAG, "ERROR: failed to putDataItem, status code: "
+                                            + dataItemResult.getStatus().getStatusCode());
+                                }
+                            }
+                        });
+
+            }
+        });
+
+    }
+
+
+    void nannkamethod(){
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String stepsFirstPolylinePoint = sharedPreferences.getString("stepsFirstPolylinePoint", null);
+        String stepsSecondPolylinePoint = sharedPreferences.getString("stepsSecondPolylinePoint",null);
+
+
+
+        if(stepsFirstPolylinePoint == stepsSecondPolylinePoint){
+
+        }
+        if(stockStepsFirstPolylinePoint == stepsFirstPolylinePoint){
+
+        }
+        stockStepsFirstPolylinePoint = stepsFirstPolylinePoint;
+
+    }
+
+
 
     private List<LatLng> decodePoly(String encoded) {
 
@@ -282,6 +441,53 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .title("Sydney")
                 .snippet("The most populous city in Australia.")
                 .position(sydney));
+    }
+
+
+    @Override
+    public void onDataChanged(DataEventBuffer dataEvents) {
+        for (DataEvent event : dataEvents) {
+            if (event.getType() == DataEvent.TYPE_CHANGED) {
+                DataItem item = event.getDataItem();
+                if (item.getUri().getPath().equals("/testapp")) {
+                    DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
+                    String name = dataMap.getString("name"); // "shokai"
+                    String url  = dataMap.getString("url");  // "http://shokai.org"
+                }
+            } else if (event.getType() == DataEvent.TYPE_DELETED) {
+                // 削除イベント
+            }
+        }
+    }
+    @Override
+    public void onConnected(Bundle bundle) {
+        Wearable.DataApi.addListener(mGoogleApiClient, this);
+        //Wearable.DataApi.addListener(mGoogleApiClient, this);
+        Log.d("TAG", "onConnected");
+    }
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.d("TAG", "onConnectionSuspended");
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Log.e("TAG", "onConnectionFailed: " + connectionResult);
+    }
+
+
+
+    // Activity stopで接続解除
+    @Override
+    protected void onStop() {
+        if (null != mGoogleApiClient && mGoogleApiClient.isConnected()) {
+            Wearable.DataApi.removeListener(mGoogleApiClient, this);
+            mGoogleApiClient.disconnect();
+        }
+        super.onStop();
+
+        Log.d(TAG, "onStop()");
+
     }
 
 
