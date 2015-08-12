@@ -79,41 +79,49 @@ public class ParceJson extends Activity{
             sharedPreferences.edit().putInt("legsDurationValue", legsDuration.getInt("value")).apply();
             sharedPreferences.edit().putString("legsDurationText", legsDuration.getString("text")).apply();
             sharedPreferences.edit().putInt("legsDistanceValue", legsDistance.getInt("value")).apply();
-            sharedPreferences.edit().putString("legsDistanceText",legsDistance.getString("text")).apply();
+            sharedPreferences.edit().putString("legsDistanceText", legsDistance.getString("text")).apply();
 
 
 
 
 
             Log.d("null", String.valueOf(steps.isNull(1)));
-            if (!(steps.isNull(1))){
+            if (!(steps.isNull(1))) {
                 stepsSecond = steps.getJSONObject(1);
-                stepsSecondPolylinePoint = stepsSecond.getJSONObject("polyline").getString("points");
-                stepsSecondHtml_instructions = stepsSecond.getString("html_instructions");
-                Log.d("html_instructions", stepsSecond.get("html_instructions").toString());
+            }else {
+                stepsSecond = steps.getJSONObject(0);
+            }
 
-                sharedPreferences.edit().putString("stepsSecondPolylinePoint",stepsSecondPolylinePoint).apply();
-                sharedPreferences.edit().putString("stepsSecondHtml_instructions",stepsSecondHtml_instructions).apply();
-                Html_instructionsList = stepsSecondHtml_instructions.split("</b>",0);
-                for(int i= 0 ; i<Html_instructionsList.length-1 ;i++ ){
+            stepsSecondPolylinePoint = stepsSecond.getJSONObject("polyline").getString("points");
+            stepsSecondHtml_instructions = stepsSecond.getString("html_instructions");
+            Log.d("html_instructions", stepsSecond.get("html_instructions").toString());
 
-                    Log.d("Html_instructionsList",Html_instructionsList[i]);
-                    String str = Html_instructionsList[i];
+            sharedPreferences.edit().putString("stepsSecondPolylinePoint", stepsSecondPolylinePoint).apply();
+            sharedPreferences.edit().putString("stepsSecondHtml_instructions", stepsSecondHtml_instructions).apply();
+            Html_instructionsList = stepsSecondHtml_instructions.split("</b>",0);
+            for(int i= 0 ; i<Html_instructionsList.length-1 ;i++ ){
 
-                    //Log.d("str",""+str.length());
-                    //Log.d("strstr",str);
-                    int index = str.indexOf("<b>");
-                    Log.d("index",""+index);
-                    //String str01 = str.substring(1,4);
-                    String str01 = str.substring(index+3);
-                    Log.d("Html_instructionsList",str01);
-                    Html_instructionsList[i] = str01;
+                Log.d("Html_instructionsList",Html_instructionsList[i]);
+                String str = Html_instructionsList[i];
+                 //Log.d("str",""+str.length());
+                //Log.d("strstr",str);
+                int index = str.indexOf("<b>");
+                Log.d("index",""+index);
+                //String str01 = str.substring(1,4);
+                String str01 = str.substring(index+3);
+                Log.d("Html_instructionsList",str01);
+                Html_instructionsList[i] = str01;
 
-                }
-                gson = new Gson();
-                sharedPreferences.edit().putString("Html_instructionsList",gson.toJson(Html_instructionsList)).apply();
+
 
             }
+            gson = new Gson();
+            sharedPreferences.edit().putString("Html_instructionsList",gson.toJson(Html_instructionsList)).apply();
+
+
+
+
+
 
             Log.d("sharedPreferences",sharedPreferences.toString());
 
