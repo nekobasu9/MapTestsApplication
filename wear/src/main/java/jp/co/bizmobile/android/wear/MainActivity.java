@@ -54,6 +54,7 @@ public class MainActivity extends WearableActivity implements DataApi.DataListen
         setAmbientEnabled();
 
         mContainerView = (BoxInsetLayout) findViewById(R.id.container);
+        setUpView();
 
 //        mTextView = (TextView) findViewById(R.id.text);
 //        mClockView = (TextView) findViewById(R.id.clock);

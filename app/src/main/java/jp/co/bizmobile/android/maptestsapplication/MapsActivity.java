@@ -417,6 +417,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+
+    // Activity stopで接続解除
+//    @Override
+//    protected void onDestroy() {
+//        if (null != mGoogleApiClient && mGoogleApiClient.isConnected()) {
+//            mGoogleApiClient.disconnect();
+//        }
+//        super.onDestroy();
+//
+//        Log.d(TAG, "onStop()");
+//
+//    }
+
     /**
      * This is where we can add markers or lines, add listeners or move the camera. In this case, we
      * just add a marker near Africa.
@@ -478,17 +491,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     // Activity stopで接続解除
+//    @Override
+//    protected void onStop() {
+//        if (null != mGoogleApiClient && mGoogleApiClient.isConnected()) {
+//            Wearable.DataApi.removeListener(mGoogleApiClient, this);
+//            mGoogleApiClient.disconnect();
+//        }
+//        super.onStop();
+//
+//        Log.d(TAG, "onStop()");
+//
+//    }
+
+    // Activity stopで接続解除
     @Override
-    protected void onStop() {
+    protected void onDestroy() {
         if (null != mGoogleApiClient && mGoogleApiClient.isConnected()) {
-            Wearable.DataApi.removeListener(mGoogleApiClient, this);
             mGoogleApiClient.disconnect();
         }
-        super.onStop();
+        super.onDestroy();
 
         Log.d(TAG, "onStop()");
 
     }
-
 
 }
