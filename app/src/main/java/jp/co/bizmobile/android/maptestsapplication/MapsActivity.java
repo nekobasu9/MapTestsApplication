@@ -379,7 +379,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return poly;
     }
 
-
+/////////////////////
     private String getDirectionsUrl(){
 
 
@@ -402,6 +402,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         return url;
     }
+
+    ////////////////////
     @Override
     protected void onResume() {
         super.onResume();
