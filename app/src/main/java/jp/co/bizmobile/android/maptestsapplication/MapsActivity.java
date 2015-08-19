@@ -1,7 +1,10 @@
 package jp.co.bizmobile.android.maptestsapplication;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
@@ -47,6 +50,7 @@ import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -239,7 +243,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             requestTime = stepsFirstDrationValue / 2;
             Log.d("stepsFirstDrationValue","hanbun"+stepsFirstDrationValue);
         }
-        requestTime *= 1000;
+        //requestTime *= 1000;
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -249,6 +253,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 //Toast.makeText(context, String.valueOf(++count), Toast.LENGTH_SHORT).show();
             }
         }, requestTime);
+
+
+        Intent intent = new Intent(MapsActivity.this,ReceiverAlert.class);
+        PendingIntent sender = PendingIntent.getBroadcast(MapsActivity.this,0,intent,0);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.add(Calendar.SECOND, requestTime);
+
+        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),sender);
+
+        Toast.makeText(MapsActivity.this, "Start Alarm!", Toast.LENGTH_SHORT).show();
+        Log.d(TAG,"alarmStart");
+
 
     }
 
