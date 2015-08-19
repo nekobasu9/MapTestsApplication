@@ -35,7 +35,8 @@ public class MainActivity extends WearableActivity implements DataApi.DataListen
     TextView stepsFirstDurationTextView = null;
     TextView stepsFirstDistanceTextView = null;
 
-    ListView Html_instructionsListView = null;
+    //ListView Html_instructionsListView = null;
+    TextView Html_instructionsTextView = null;
 
 
     GoogleApiClient mGoogleApiClient;
@@ -85,9 +86,17 @@ public class MainActivity extends WearableActivity implements DataApi.DataListen
             mClockView.setVisibility(View.VISIBLE);
 
             mClockView.setText(AMBIENT_DATE_FORMAT.format(new Date()));
+
+
+            Html_instructionsTextView.setTextColor(getResources().getColor(android.R.color.white));
         } else {
             mContainerView.setBackground(null);
             mTextView.setTextColor(getResources().getColor(android.R.color.black));
+
+
+            Html_instructionsTextView.setTextColor(getResources().getColor(android.R.color.black));
+
+
             mClockView.setVisibility(View.GONE);
         }
     }
@@ -101,19 +110,26 @@ public class MainActivity extends WearableActivity implements DataApi.DataListen
         stepsFirstDistanceTextView = (TextView)findViewById(R.id.textView3);
         stepsFirstDurationTextView = (TextView)findViewById(R.id.textView4);
 
-        Html_instructionsListView = (ListView)findViewById(R.id.listView);
+        //Html_instructionsListView = (ListView)findViewById(R.id.listView);
+        Html_instructionsTextView = (TextView)findViewById(R.id.textView5);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_expandable_list_item_1);
+
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//                android.R.layout.simple_expandable_list_item_1);
         if(Html_instructionsList.length > 0){
-            adapter.clear();
-            adapter.addAll(Html_instructionsList);
+            //adapter.clear();
+            //adapter.addAll(Html_instructionsList);
 
             legsDistanceTextView.setText("到着まで"+legsDistanceText);
             legsDurationTextView.setText("到着まで"+legsDurationText);
 
             stepsFirstDistanceTextView.setText("次"+stepsFirstDistanceText);
             stepsFirstDurationTextView.setText("次"+stepsFirstDurationText);
+            String str = null;
+            for(int i = 0;i<Html_instructionsList.length;i++){
+                str += Html_instructionsList[i];
+            }
+            Html_instructionsTextView.setText(str);
         }
     }
 
