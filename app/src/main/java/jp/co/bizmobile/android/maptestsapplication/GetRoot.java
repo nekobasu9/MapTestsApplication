@@ -8,9 +8,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -67,9 +69,26 @@ public class GetRoot extends Activity implements
     SharedPreferences sharedPreferences;
     int requestTime;
 
+    private LocationManager locationManager;
+
+
     void getLocation(){
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+
+        locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
+
+        final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        if (!gpsEnabled) {
+            // GPSを設定するように促す
+            enableLocationSettings();
+        }
+
+
+        //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000,50,this);
+
+
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
@@ -90,7 +109,7 @@ public class GetRoot extends Activity implements
 
 
 
-        String url = getDirectionsUrl(origin,dest);
+        String url = getDirectionsUrl();
 
         mQueue = Volley.newRequestQueue(this);
         mQueue.add(new JsonObjectRequest(Request.Method.GET, url, null,
@@ -143,7 +162,7 @@ public class GetRoot extends Activity implements
     }
 
 
-    private String getDirectionsUrl(LatLng origin,LatLng dest){
+    private String getDirectionsUrl(){
 
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -328,5 +347,10 @@ public class GetRoot extends Activity implements
 //        Log.d(TAG,"alarmStart");
 
 
+    }
+
+    private void enableLocationSettings() {
+        Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        startActivity(settingsIntent);
     }
 }
