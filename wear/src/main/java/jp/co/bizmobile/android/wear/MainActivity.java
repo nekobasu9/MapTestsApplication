@@ -21,8 +21,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import jp.co.bizmobile.android.maptestsapplication.R;
-
 public class MainActivity extends WearableActivity implements DataApi.DataListener{
 
     private static final SimpleDateFormat AMBIENT_DATE_FORMAT =
@@ -122,8 +120,8 @@ public class MainActivity extends WearableActivity implements DataApi.DataListen
             //adapter.clear();
             //adapter.addAll(Html_instructionsList);
 
-            legsDistanceTextView.setText("到着まで" + legsDistanceText);
-            legsDurationTextView.setText("到着まで" + legsDurationText);
+            legsDistanceTextView.setText("到着まで"+legsDistanceText);
+            legsDurationTextView.setText("到着まで"+legsDurationText);
 
             stepsFirstDistanceTextView.setText("次"+stepsFirstDistanceText);
             stepsFirstDurationTextView.setText("次"+stepsFirstDurationText);
