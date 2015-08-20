@@ -78,11 +78,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String stepsFirstDurationText;
     String stepsFirstDistanceText;
 
+    //SharedPreferences sharedPreferences;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         setUpMapIfNeeded();
+
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Wearable.API)
@@ -100,6 +105,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onMyLocationChange(Location location) {
                 Log.d("push", "pushbutton");
                 origin = new LatLng(location.getLatitude(), location.getLongitude());
+
+                sharedPreferences.edit().putString("origin_latitude",String.valueOf(origin.latitude)).apply();
+                sharedPreferences.edit().putString("origin_longitude",String.valueOf(origin.longitude)).apply();
+
                 Log.d("origin", "" + origin);
                 mMyLocation = location;
                 if (mMyLocation != null && mMyLocationCentering == false) { // 一度だけ現在地を画面中央に表示する
@@ -120,6 +129,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 mMap.clear();
                 dest = latLng;
+
+                sharedPreferences.edit().putString("dest_latitude",String.valueOf(dest.latitude)).apply();
+                sharedPreferences.edit().putString("dest_longitude",String.valueOf(dest.longitude)).apply();
+
+
+                //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences();
+
+
                 Log.d("LatLng", "" + latLng);
                 markerPoints.add(latLng);
 
@@ -383,10 +400,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String getDirectionsUrl(){
 
 
-        String str_origin = "origin="+origin.latitude+","+origin.longitude;
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 
-        String str_dest = "destination="+dest.latitude+","+dest.longitude;
+        String str_origin_latitude = sharedPreferences.getString("origin_latitude", null);
+        String str_oringi_longitude = sharedPreferences.getString("origin_longitude", null);
+
+
+        String str_origin = "origin="+str_origin_latitude+","+str_oringi_longitude;
+
+//        String str_origin = "origin="+origin.latitude+","+origin.longitude;
+        //sharedPreferences.edit().putString("str_origin",str_origin).apply();
+
+
+        String str_dest_latitude = sharedPreferences.getString("dest_latitude",null);
+        String str_dest_longitude = sharedPreferences.getString("dest_longitude",null);
+
+
+        String str_dest = "destination="+str_dest_latitude+","+str_dest_longitude;
+        //String str_dest = "destination="+dest.latitude+","+dest.longitude;
+        //sharedPreferences.edit().putString("str_dest",str_dest).apply();
 
 
         String sensor = "sensor=false";

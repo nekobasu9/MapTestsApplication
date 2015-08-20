@@ -3,8 +3,10 @@ package jp.co.bizmobile.android.maptestsapplication;
 /**
  * Created by shotaroyoshida on 2015/08/19.
  */
+import java.util.ArrayList;
 import java.util.Calendar;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Notification;
@@ -16,34 +18,53 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.location.Location;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.wearable.Wearable;
+import com.google.gson.Gson;
+
 public class ReceiverAlert extends BroadcastReceiver {
 
     private static final String TAG = "ReceiverAlert#";
 
-    MapsActivity mapsActivity;
+    private RequestQueue mQueue;
+    private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    private static Location mMyLocation = null;
+    private static boolean mMyLocationCentering = false;
+    ArrayList<LatLng> markerPoints;
+    public static MarkerOptions options;
+    Gson gson;
+    LatLng origin;
+    LatLng dest;
+    SharedPreferences sharedPreferences = null;
+    String stockStepsFirstPolylinePoint;
+    int requestTime;
+    private GoogleApiClient mGoogleApiClient;
+    private String[] Html_instructionsList;
+    String legsDistanceText;
+    String legsDurationText;
+    String stepsFirstDurationText;
+    String stepsFirstDistanceText;
+
+    GetRoot getRoot;
+
+
     // ______________________________________________________________________________
     @Override   // データを受信した
     public void onReceive(Context context, Intent intent) {
 
-        mapsActivity = new MapsActivity();
-        mapsActivity.root();
-        // 時間の再設定が必要なもの
-        if (intent.getAction() != null && (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)
-                || intent.getAction().equals(Intent.ACTION_DATE_CHANGED)
-                || intent.getAction().equals(Intent.ACTION_TIMEZONE_CHANGED)
-                || intent.getAction().equals(Intent.ACTION_TIME_CHANGED)
-                || intent.getAction().equals(Intent.ACTION_PACKAGE_REPLACED))) {
-
-            // 表示
-            Toast.makeText(context, TAG + ": アクションを受信 " + intent.getAction(), Toast.LENGTH_SHORT).show();
-
-        } else {
+        getRoot = new GetRoot();
+//        getRoot.root();
 
 
             /*
@@ -52,56 +73,39 @@ public class ReceiverAlert extends BroadcastReceiver {
             PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "TAG");
             wl.acquire(10000);
             */
-            String prefName = context.getPackageName() + "_preference";
-            SharedPreferences sp = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
 
-            // 今のカウントを取り出す
-            int count = sp.getInt("count", 0);
-
-            NotificationManager nm = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-            Notification n = new NotificationCompat.Builder(context)
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setTicker("時間です！")
-                    .setWhen(System.currentTimeMillis())
-                    .setContentTitle(count + "回目")
-                    .setContentText("お時間となりましたよ。")
-                    .setDefaults(Notification.DEFAULT_ALL)
-                    .build();
-
-            // 古い通知を削除
-            nm.cancelAll();
-            nm.notify(R.string.app_name, n);
-
-
-            // カウントアップ
-            Editor editor = sp.edit();
-            editor.putInt("count", count + 1);
-            editor.commit();
+//            NotificationManager nm = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+//
+//            Notification n = new NotificationCompat.Builder(context)
+//                    .setSmallIcon(R.mipmap.ic_launcher)
+//                    .setTicker("ルート案内中です")
+//                    .setWhen(System.currentTimeMillis())
+//                    .setContentTitle("ルート案内中です")
+//                    .setContentText("ルート案内中です。")
+//                    .setDefaults(Notification.DEFAULT_ALL)
+//                    .build();
 
 
 
+//
+//            Log.i(TAG + "onReceive", "時間です！" + count + " 回目");
 
-            Log.i(TAG + "onReceive", "時間です！" + count + " 回目");
+//
+//            //　しばらくは再通知
+//            if (count < 5) {
+//                // 再度タイマーをセットする
+//                Calendar cal = Calendar.getInstance();
+//                cal.setTimeInMillis(System.currentTimeMillis());
+//                cal.add(Calendar.SECOND, 10);
+//
+//                AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+//                am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), getPending(context, 0));
+//            } else {
+//                // 通常メッセージを受信
+//                Toast.makeText(context, TAG + ": タイマー終了！ ", Toast.LENGTH_SHORT).show();
+//            }
 
-            // 通常メッセージを受信
-            Toast.makeText(context, TAG + " 時間です！" + count + " 回目", Toast.LENGTH_SHORT).show();
 
-            //　しばらくは再通知
-            if (count < 5) {
-                // 再度タイマーをセットする
-                Calendar cal = Calendar.getInstance();
-                cal.setTimeInMillis(System.currentTimeMillis());
-                cal.add(Calendar.SECOND, 10);
-
-                AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-                am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), getPending(context, 0));
-            } else {
-                // 通常メッセージを受信
-                Toast.makeText(context, TAG + ": タイマー終了！ ", Toast.LENGTH_SHORT).show();
-            }
-
-        }
     }
 
     // ______________________________________________________________________________
