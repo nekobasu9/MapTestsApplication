@@ -1,12 +1,18 @@
 package jp.co.bizmobile.android.maptestsapplication;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -36,6 +42,7 @@ import com.google.gson.Gson;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -57,7 +64,8 @@ public class GetRoot extends Activity implements
 
     private LatLng origin ;
     private LatLng dest;
-
+    SharedPreferences sharedPreferences;
+    int requestTime;
 
     void getLocation(){
         locationRequest = LocationRequest.create();
@@ -145,6 +153,7 @@ public class GetRoot extends Activity implements
                         //startTimer();
 
                         new SendWear().sendWear();
+                        startReceiver();
 
 
 //                        try {
@@ -169,7 +178,7 @@ public class GetRoot extends Activity implements
     private String getDirectionsUrl(LatLng origin,LatLng dest){
 
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 
         String str_origin_latitude = sharedPreferences.getString("origin_latitude", null);
@@ -236,12 +245,12 @@ public class GetRoot extends Activity implements
         if(currentLocation != null) {
             origin = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
             //String str = String.valueOf(origin.latitude);
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
             sharedPreferences.edit().putString("origin_latitude",String.valueOf(origin.latitude)).apply();
             sharedPreferences.edit().putString("origin_longitude",String.valueOf(origin.longitude)).apply();
 
-
+            root();
         }
         //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -290,5 +299,65 @@ public class GetRoot extends Activity implements
         }
 
         return poly;
+    }
+
+
+    void startReceiver(){
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+
+        int stepsFirstDrationValue = sharedPreferences.getInt("stepsFirstDrationValue", 0);
+
+        if (stepsFirstDrationValue <= 120){
+
+            requestTime = stepsFirstDrationValue;
+            Log.d("stepsFirstDrationValue","sonomama"+stepsFirstDrationValue);
+
+        }else{
+
+            requestTime = stepsFirstDrationValue / 2;
+            Log.d("stepsFirstDrationValue","hanbun"+stepsFirstDrationValue);
+        }
+        //requestTime *= 1000;
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                root();
+//                Log.d("handler", "startroot");
+//                //Toast.makeText(context, String.valueOf(++count), Toast.LENGTH_SHORT).show();
+//            }
+//        }, requestTime);
+
+
+
+        Intent intent = new Intent(GetRoot.this,ReceiverAlert.class);
+        PendingIntent sender = PendingIntent.getBroadcast(GetRoot.this,0,intent,0);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.add(Calendar.SECOND, requestTime);
+
+        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),sender);
+
+        //Toast.makeText(MapsActivity.this, "Start Alarm!", Toast.LENGTH_SHORT).show();
+        Log.d("alarm","alarmStart");
+
+//        Intent intent = new Intent(MapsActivity.this,ReceiverAlert.class);
+//        PendingIntent sender = PendingIntent.getBroadcast(MapsActivity.this,0,intent,0);
+//
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTimeInMillis(System.currentTimeMillis());
+//        calendar.add(Calendar.SECOND, requestTime);
+//
+//        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+//        alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),sender);
+//
+//        Toast.makeText(MapsActivity.this, "Start Alarm!", Toast.LENGTH_SHORT).show();
+//        Log.d(TAG,"alarmStart");
+
+
     }
 }
