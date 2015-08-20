@@ -87,6 +87,7 @@ public class ReceiverAlert extends BroadcastReceiver {
 
 
 
+
 //
 //            Log.i(TAG + "onReceive", "時間です！" + count + " 回目");
 

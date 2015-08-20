@@ -13,6 +13,8 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -106,8 +108,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.d("push", "pushbutton");
                 origin = new LatLng(location.getLatitude(), location.getLongitude());
 
-                sharedPreferences.edit().putString("origin_latitude",String.valueOf(origin.latitude)).apply();
-                sharedPreferences.edit().putString("origin_longitude",String.valueOf(origin.longitude)).apply();
+                sharedPreferences.edit().putString("origin_latitude", String.valueOf(origin.latitude)).apply();
+                sharedPreferences.edit().putString("origin_longitude", String.valueOf(origin.longitude)).apply();
 
                 Log.d("origin", "" + origin);
                 mMyLocation = location;
@@ -149,6 +151,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 root();
             }
         });
+
+        // 停止ボタン
+        Button btn2 = (Button)this.findViewById(R.id.button);
+        btn2.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                // Pending Intent使ってレシーバーをセットする
+//                PendingIntent sender = MapsActivity.this.getPending(MainActivity.this, 0);
+                Intent intent = new Intent(MapsActivity.this,ReceiverAlert.class);
+                PendingIntent sender = PendingIntent.getBroadcast(MapsActivity.this, 0, intent, 0);
+
+
+                // アラームを解除する
+                AlarmManager am = (AlarmManager) MapsActivity.this.getSystemService(ALARM_SERVICE);
+                am.cancel(sender);
+
+                Toast.makeText(MapsActivity.this, TAG + ": Alarmキャンセル！", Toast.LENGTH_SHORT).show();
+                Log.d("cancel","cancel");
+            }
+        });
+
 
 
     }
