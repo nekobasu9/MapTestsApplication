@@ -130,6 +130,12 @@ public class MainActivity extends WearableActivity implements DataApi.DataListen
                 str += Html_instructionsList[i];
             }
             Html_instructionsTextView.setText(str);
+
+
+            //Test
+            boolean YES = true;
+
+
         }
     }
 
