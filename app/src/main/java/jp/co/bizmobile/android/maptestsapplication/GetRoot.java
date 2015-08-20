@@ -99,10 +99,6 @@ public class GetRoot extends Activity implements
                     public void onResponse(JSONObject response) {
                         //JSONObject json = new JSONObject(response);
 
-
-                        Polyline line = null;
-
-
                         try {
                             //String status = response.getString("status");
                             //if(response.getString("status") == "OK") {
@@ -116,41 +112,13 @@ public class GetRoot extends Activity implements
                             //SharedPreferences data = getSharedPreferences("directionDataSave", Context.MODE_PRIVATE);
                             sharedPreferences.edit().putString("directionData", jsonInstanceString).apply();
 
-                            // Tranform the string into a json object
-                            //final JSONObject json = new JSONObject(result);
-                            //Log.d("response",response.toString(4));
                             ParceJson parceJson = new ParceJson();
                             parceJson.parce(getApplicationContext(), response);
 
-                            //String stepsFirstDistance = parceJson.stepsFirstDistance.getString("test");
-
-//                            JSONArray routeArray = response.getJSONArray("routes");
-//                            JSONObject routes = routeArray.getJSONObject(0);
-//                            JSONObject overviewPolylines = routes
-//                                    .getJSONObject("overview_polyline");
-//
-                            //String overviewPolylines = sharedPreferences.getString("overviewPolylines", null);
-                            //String encodedString = overviewPolylines.getString("points");
-                            //List<LatLng> list = decodePoly(overviewPolylines);
-
-//                            for (int z = 0; z < list.size() - 1; z++) {
-//                                LatLng src = list.get(z);
-//                                LatLng dest = list.get(z + 1);
-//                                line = mMap.addPolyline(new PolylineOptions()
-//                                        .add(new LatLng(src.latitude, src.longitude),
-//                                                new LatLng(dest.latitude, dest.longitude))
-//                                        .width(5).color(Color.BLUE).geodesic(true));
-//                            }
-//                            }else{
-//                                Log.d("status",response.getString("status"));
-//                            }
 
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
-                        //sendWear();
-                        //startTimer();
 
                         new SendWear().sendWear();
                         startReceiver();
@@ -234,6 +202,7 @@ public class GetRoot extends Activity implements
 
     @Override
     public void onLocationChanged(Location location){
+        Log.d("GetRoot","onLocationChanged");
 
     }
     @Override

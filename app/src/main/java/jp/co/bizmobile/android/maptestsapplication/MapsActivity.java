@@ -80,8 +80,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String stepsFirstDurationText;
     String stepsFirstDistanceText;
 
-    //SharedPreferences sharedPreferences;
-
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -286,15 +284,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.d("stepsFirstDrationValue","hanbun"+stepsFirstDrationValue);
         }
         //requestTime *= 1000;
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                root();
-                Log.d("handler", "startroot");
-                //Toast.makeText(context, String.valueOf(++count), Toast.LENGTH_SHORT).show();
-            }
-        }, requestTime);
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                root();
+//                Log.d("handler", "startroot");
+//                //Toast.makeText(context, String.valueOf(++count), Toast.LENGTH_SHORT).show();
+//            }
+//        }, requestTime);
 
 
         Intent intent = new Intent(MapsActivity.this,ReceiverAlert.class);

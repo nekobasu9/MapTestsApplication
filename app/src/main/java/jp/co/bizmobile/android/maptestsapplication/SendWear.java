@@ -110,17 +110,14 @@ public class SendWear extends Activity implements GoogleApiClient.ConnectionCall
     }
 
 
-
-
     @Override
     public void onDataChanged(DataEventBuffer dataEvents) {
         for (DataEvent event : dataEvents) {
             if (event.getType() == DataEvent.TYPE_CHANGED) {
                 DataItem item = event.getDataItem();
-                if (item.getUri().getPath().equals("/testapp")) {
+                if (item.getUri().getPath().equals("/path")) {
                     DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
-                    String name = dataMap.getString("name"); // "shokai"
-                    String url  = dataMap.getString("url");  // "http://shokai.org"
+
                 }
             } else if (event.getType() == DataEvent.TYPE_DELETED) {
                 // 削除イベント
@@ -142,13 +139,6 @@ public class SendWear extends Activity implements GoogleApiClient.ConnectionCall
     public void onConnectionFailed(ConnectionResult connectionResult) {
         Log.e("TAG", "onConnectionFailed: " + connectionResult);
     }
-
-
-
-
-
-
-
 
 
 }
