@@ -2,67 +2,11 @@
 <items version="2" >
 
     <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/7.5.0/jars/classes.jar"
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/7.5.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.0 rc3"
-        sha1="06a42becc33232ec0ee125161da68c1829c9f8fd">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-c4863c53c705dad2550748c38d5d9a57967447c6.jar" />
-    </item>
-    <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.5.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc3"
-        sha1="a78183f30e769a98ab4820794f597763088d3065">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/pre-dexed/debug/classes-b8a5aa50a94ec4cbf01139b2216569253caad2f9.jar" />
-    </item>
-    <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/7.5.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc3"
-        sha1="1e98ef3f124bb7a11f8575f9ff5dfea330b61b6f">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-1dcbe8585d2cd34e0afed2ac06364f5a250d580c.jar" />
-    </item>
-    <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/7.5.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc3"
-        sha1="1a6411087ab88ce5542f593e63a2752b6b0d6f1a">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-cd074a4a44a50b1848f0b06d5e1cb6e58e554859.jar" />
-    </item>
-    <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.5.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc3"
-        sha1="6836d188602ec5382d1967c58b00960eb8ff8773">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-302cf6c2e6166437e016a1837ded437b1bd2b7cd.jar" />
-    </item>
-    <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc3"
-        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-712f0228838515aab7ab9fed4df5cf99290538ca.jar" />
-    </item>
-    <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/libs/internal_impl-22.2.1.jar"
-        jumboMode="false"
-        revision="23.0.0 rc3"
-        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.1-f0752c32963d41f0fb93ed02843616bbb7a54766.jar" />
-    </item>
-    <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/jars/libs/internal_impl-22.0.0.jar"
-        jumboMode="false"
-        revision="23.0.0 rc3"
-        sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-def92331843856566a677334b9ee38cfb5dd5cd2.jar" />
-    </item>
-    <item
-        jar="/Users/shotaroyoshida/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/ecb6e1f8e4b0e84c4b886c2f14a1500caf309757/gson-2.3.1.jar"
-        jumboMode="false"
-        revision="23.0.0 rc3"
-        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/gson-2.3.1-aa736dbc8b8b3978441e9674d751fe34cb190e4e.jar" />
+        sha1="ba207be21987c11b37d9f8faa08ed6e722569f30">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-029fe64e70786496b17d1017ea861552ac4032e3.jar" />
     </item>
     <item
         jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.0.0/jars/libs/internal_impl-22.0.0.jar"
@@ -70,27 +14,6 @@
         revision="23.0.0 rc3"
         sha1="ba3df4eb0a630d7de294f0e48d3f9267d279b784">
         <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-aed69b3668c7aa1d39af76fd409e826f3e18a326.jar" />
-    </item>
-    <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/7.5.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc3"
-        sha1="272bc5d7063f24bc3a33ea1d318cde8f31f5ec4c">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-69d40082688aebb5ba5716a2ac334f9f34f798e7.jar" />
-    </item>
-    <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc3"
-        sha1="f8efd0096475e0daf054267b61544e10dc776503">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-fda7cf90dcc672842dc2a58a5e06e61f1b0e2e9c.jar" />
-    </item>
-    <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/7.5.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc3"
-        sha1="69dd177337ead693c408c8dddc9546bb6f1244fa">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/pre-dexed/debug/classes-4c4a930bd951792682dc3b66053e7d676de5a515.jar" />
     </item>
     <item
         jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/7.5.0/jars/classes.jar"
@@ -107,6 +30,55 @@
         <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-6e3039bed19e9f245e73b1fe500b4a87f596b995.jar" />
     </item>
     <item
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc3"
+        sha1="a78183f30e769a98ab4820794f597763088d3065">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-53e36d80d3bd739a2168578d4f6c6570cb88c5f1.jar" />
+    </item>
+    <item
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc3"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-fda7cf90dcc672842dc2a58a5e06e61f1b0e2e9c.jar" />
+    </item>
+    <item
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc3"
+        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/pre-dexed/debug/classes-c5be67336bb42919d3cbe038d03dea0dc0b098af.jar" />
+    </item>
+    <item
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc3"
+        sha1="a1372c17fccacca753d3951d3ad820571cbce075">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-e68461ee8c818770d4486b79677089702a69d993.jar" />
+    </item>
+    <item
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc3"
+        sha1="6836d188602ec5382d1967c58b00960eb8ff8773">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-302cf6c2e6166437e016a1837ded437b1bd2b7cd.jar" />
+    </item>
+    <item
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/jars/libs/internal_impl-22.0.0.jar"
+        jumboMode="false"
+        revision="23.0.0 rc3"
+        sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-def92331843856566a677334b9ee38cfb5dd5cd2.jar" />
+    </item>
+    <item
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc3"
+        sha1="69dd177337ead693c408c8dddc9546bb6f1244fa">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-708f42c52cb291fb2cf72a425b316af2c8798c4d.jar" />
+    </item>
+    <item
         jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/7.5.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.0 rc3"
@@ -121,18 +93,67 @@
         <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-a33ebd88383e89942ba38c35ee714ab2756ca6cb.jar" />
     </item>
     <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/7.5.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc3"
-        sha1="69dd177337ead693c408c8dddc9546bb6f1244fa">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-708f42c52cb291fb2cf72a425b316af2c8798c4d.jar" />
-    </item>
-    <item
         jar="/Users/shotaroyoshida/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.0.0/support-annotations-22.0.0.jar"
         jumboMode="false"
         revision="23.0.0 rc3"
         sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
         <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/pre-dexed/debug/support-annotations-22.0.0-d1c4c1db456bf98e05022e8fecd184e4d2673671.jar" />
+    </item>
+    <item
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc3"
+        sha1="69dd177337ead693c408c8dddc9546bb6f1244fa">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/pre-dexed/debug/classes-4c4a930bd951792682dc3b66053e7d676de5a515.jar" />
+    </item>
+    <item
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc3"
+        sha1="c6d79137693d494dee16372d3921f919eb724ced">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/pre-dexed/debug/classes-293dcd66c785941bddbf3d2bbd70f00c4007fa94.jar" />
+    </item>
+    <item
+        jar="/Users/shotaroyoshida/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/ecb6e1f8e4b0e84c4b886c2f14a1500caf309757/gson-2.3.1.jar"
+        jumboMode="false"
+        revision="23.0.0 rc3"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/gson-2.3.1-aa736dbc8b8b3978441e9674d751fe34cb190e4e.jar" />
+    </item>
+    <item
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc3"
+        sha1="8d736fefa22d896e84a268354b3ed48a42663150">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-361dd007e24bb98827d6a949383b1a7df3d6a287.jar" />
+    </item>
+    <item
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/libs/internal_impl-22.2.1.jar"
+        jumboMode="false"
+        revision="23.0.0 rc3"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.1-f0752c32963d41f0fb93ed02843616bbb7a54766.jar" />
+    </item>
+    <item
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/1.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc3"
+        sha1="0e239b45d3b94ac3d759405a9c5fd1f88e53913b">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/pre-dexed/debug/classes-b5570f2b1f9668f2fc142b1cc928068fd5b46122.jar" />
+    </item>
+    <item
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc3"
+        sha1="1a6411087ab88ce5542f593e63a2752b6b0d6f1a">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-cd074a4a44a50b1848f0b06d5e1cb6e58e554859.jar" />
+    </item>
+    <item
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc3"
+        sha1="e7b35244f50663b3f8d150714bca9ecd7a290da1">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-990efa5b38de448016b48448cdc549a50fc81a8a.jar" />
     </item>
     <item
         jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.5.0/jars/classes.jar"
@@ -142,32 +163,18 @@
         <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-00028d50c47454ff7a2c9521fc1444dc4c6e911a.jar" />
     </item>
     <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.0.0/jars/classes.jar"
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/7.5.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.0 rc3"
-        sha1="a1372c17fccacca753d3951d3ad820571cbce075">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-e68461ee8c818770d4486b79677089702a69d993.jar" />
+        sha1="06a42becc33232ec0ee125161da68c1829c9f8fd">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-c4863c53c705dad2550748c38d5d9a57967447c6.jar" />
     </item>
     <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/7.5.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc3"
-        sha1="6440e5e5cfe368f9bff3c537fb8988048069cb33">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-0356329882be2f2174a7682b3120b4f5e045ffef.jar" />
-    </item>
-    <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/7.5.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc3"
-        sha1="8e3a972f28b8bae817e382257ba177a31bcadbbc">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-4137efdc70532eebb0ed7810d085fe209e26ac78.jar" />
-    </item>
-    <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.5.0/jars/classes.jar"
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.5.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.0 rc3"
         sha1="a78183f30e769a98ab4820794f597763088d3065">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-53e36d80d3bd739a2168578d4f6c6570cb88c5f1.jar" />
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/pre-dexed/debug/classes-b8a5aa50a94ec4cbf01139b2216569253caad2f9.jar" />
     </item>
     <item
         jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/7.5.0/jars/classes.jar"
@@ -184,11 +191,11 @@
         <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.1-7cec3c56bb371d1500fa000515c3b91ee26bc117.jar" />
     </item>
     <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/7.5.0/jars/classes.jar"
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/7.5.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.0 rc3"
-        sha1="8d736fefa22d896e84a268354b3ed48a42663150">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-361dd007e24bb98827d6a949383b1a7df3d6a287.jar" />
+        sha1="272bc5d7063f24bc3a33ea1d318cde8f31f5ec4c">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-69d40082688aebb5ba5716a2ac334f9f34f798e7.jar" />
     </item>
     <item
         jar="/Users/shotaroyoshida/.gradle/caches/modules-2/files-2.1/com.mcxiaoke.volley/library/1.0.7/7d0f75f98b0283208d76bfd9fefebcc3257ec3bf/library-1.0.7.jar"
@@ -198,46 +205,32 @@
         <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/library-1.0.7-031fd05e0e3220c96efcc6d145c9b39759a3fd76.jar" />
     </item>
     <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/jars/classes.jar"
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/jars/classes.jar"
         jumboMode="false"
         revision="23.0.0 rc3"
-        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/pre-dexed/debug/classes-c5be67336bb42919d3cbe038d03dea0dc0b098af.jar" />
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-712f0228838515aab7ab9fed4df5cf99290538ca.jar" />
     </item>
     <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/exploded-aar/com.google.android.support/wearable/1.2.0/jars/classes.jar"
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/7.5.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.0 rc3"
-        sha1="0e239b45d3b94ac3d759405a9c5fd1f88e53913b">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/pre-dexed/debug/classes-b5570f2b1f9668f2fc142b1cc928068fd5b46122.jar" />
+        sha1="1e98ef3f124bb7a11f8575f9ff5dfea330b61b6f">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-1dcbe8585d2cd34e0afed2ac06364f5a250d580c.jar" />
     </item>
     <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/7.5.0/jars/classes.jar"
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/7.5.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.0 rc3"
-        sha1="e7b35244f50663b3f8d150714bca9ecd7a290da1">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-990efa5b38de448016b48448cdc549a50fc81a8a.jar" />
+        sha1="6440e5e5cfe368f9bff3c537fb8988048069cb33">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-0356329882be2f2174a7682b3120b4f5e045ffef.jar" />
     </item>
     <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.0.0/jars/classes.jar"
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/7.5.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.0 rc3"
-        sha1="c6d79137693d494dee16372d3921f919eb724ced">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/wear/build/intermediates/pre-dexed/debug/classes-293dcd66c785941bddbf3d2bbd70f00c4007fa94.jar" />
-    </item>
-    <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/7.5.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc3"
-        sha1="ba207be21987c11b37d9f8faa08ed6e722569f30">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-029fe64e70786496b17d1017ea861552ac4032e3.jar" />
-    </item>
-    <item
-        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appstate/7.5.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc3"
-        sha1="68c140702c7242d914655bcb3164d9e8c45b84cb">
-        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-9c94afce623ccc3122e68fc464ec434a21907336.jar" />
+        sha1="8e3a972f28b8bae817e382257ba177a31bcadbbc">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-4137efdc70532eebb0ed7810d085fe209e26ac78.jar" />
     </item>
     <item
         jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/7.5.0/jars/classes.jar"
@@ -245,6 +238,13 @@
         revision="23.0.0 rc3"
         sha1="02bac2dc792d78241077861566f2c82da955e7fa">
         <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-07146b1a2e376837556d9e8ca02b26edf1156259.jar" />
+    </item>
+    <item
+        jar="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appstate/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc3"
+        sha1="68c140702c7242d914655bcb3164d9e8c45b84cb">
+        <dex dex="/Users/shotaroyoshida/AndroidStudioProjects/MapTestsApplication/app/build/intermediates/pre-dexed/debug/classes-9c94afce623ccc3122e68fc464ec434a21907336.jar" />
     </item>
 
 </items>

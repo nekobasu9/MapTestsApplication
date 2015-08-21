@@ -164,7 +164,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 // Pending Intent使ってレシーバーをセットする
 //                PendingIntent sender = MapsActivity.this.getPending(MainActivity.this, 0);
-                Intent intent = new Intent(MapsActivity.this,ReceiverAlert.class);
+                Intent intent = new Intent(MapsActivity.this, ReceiverAlert.class);
                 PendingIntent sender = PendingIntent.getBroadcast(MapsActivity.this, 0, intent, 0);
 
 
@@ -173,7 +173,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 am.cancel(sender);
 
                 Toast.makeText(MapsActivity.this, TAG + ": Alarmキャンセル！", Toast.LENGTH_SHORT).show();
-                Log.d("cancel","cancel");
+                Log.d("cancel", "cancel");
             }
         });
 
@@ -305,7 +305,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.SECOND, requestTime);
+        calendar.add(Calendar.SECOND, 10);
+        //calendar.add(Calendar.SECOND, requestTime);
 
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),sender);

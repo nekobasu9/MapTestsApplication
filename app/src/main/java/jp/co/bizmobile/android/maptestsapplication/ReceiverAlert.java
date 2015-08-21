@@ -63,6 +63,7 @@ public class ReceiverAlert extends BroadcastReceiver {
     @Override   // データを受信した
     public void onReceive(Context context, Intent intent) {
 
+        Log.d("getalerm","getalerm");
         getRoot = new GetRoot();
         getRoot.getLocation();
 

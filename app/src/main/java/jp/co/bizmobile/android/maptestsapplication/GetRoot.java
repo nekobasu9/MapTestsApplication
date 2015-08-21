@@ -72,9 +72,15 @@ public class GetRoot extends Activity implements
     private LocationManager locationManager;
 
 
+//
+//    @Override
+//    protected void onCreate(final Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+
+
     void getLocation(){
-        locationRequest = LocationRequest.create();
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+//        locationRequest = LocationRequest.create();
+//        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
 
         locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
