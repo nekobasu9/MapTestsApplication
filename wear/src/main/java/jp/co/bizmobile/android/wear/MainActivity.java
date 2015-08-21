@@ -21,6 +21,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import jp.co.bizmobile.android.maptestsapplication.R;
+
 public class MainActivity extends WearableActivity implements DataApi.DataListener{
 
     private static final SimpleDateFormat AMBIENT_DATE_FORMAT =
