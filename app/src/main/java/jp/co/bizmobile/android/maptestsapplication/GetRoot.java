@@ -77,13 +77,13 @@ public class GetRoot extends Activity implements
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
 
-        locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
+        //locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
 
-        final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        if (!gpsEnabled) {
-            // GPSを設定するように促す
-            enableLocationSettings();
-        }
+//        final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+//        if (!gpsEnabled) {
+//            // GPSを設定するように促す
+//            enableLocationSettings();
+//        }
 
 
         //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000,50,this);
@@ -326,6 +326,8 @@ public class GetRoot extends Activity implements
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.add(Calendar.SECOND, requestTime);
+
+//        calendar.add(Calendar.SECOND, requestTime);
 
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),sender);

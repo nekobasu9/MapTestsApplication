@@ -303,7 +303,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.SECOND, requestTime);
+        calendar.add(Calendar.SECOND, 10);
+//        calendar.add(Calendar.SECOND, requestTime);
 
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),sender);
