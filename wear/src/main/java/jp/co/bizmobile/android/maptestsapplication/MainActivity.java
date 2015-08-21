@@ -40,7 +40,9 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
     TextView stepsFirstDurationTextView = null;
     TextView stepsFirstDistanceTextView = null;
 
-    ListView Html_instructionsListView = null;
+    TextView Html_instructionsListText = null;
+
+    //ListView Html_instructionsListView = null;
 
 
     GoogleApiClient mGoogleApiClient;
@@ -76,7 +78,9 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
         stepsFirstDistanceTextView = (TextView)findViewById(R.id.textView3);
         stepsFirstDurationTextView = (TextView)findViewById(R.id.textView4);
 
-        Html_instructionsListView = (ListView)findViewById(R.id.listView);
+        Html_instructionsListText = (TextView)findViewById(R.id.textView5);
+
+        //Html_instructionsListView = (ListView)findViewById(R.id.listView);
 
 //        mTextView = (TextView) findViewById(R.id.text);
 //        mClockView = (TextView) findViewById(R.id.clock);
@@ -135,6 +139,8 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
             stepsFirstDistanceTextView.setTextColor(getResources().getColor(android.R.color.black));
             stepsFirstDurationTextView.setTextColor(getResources().getColor(android.R.color.black));
 
+            Html_instructionsListText.setTextColor(getResources().getColor(android.R.color.white));
+
 
 //            mTextView.setTextColor(getResources().getColor(android.R.color.black));
 //            mClockView.setVisibility(View.GONE);
@@ -156,27 +162,35 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_expandable_list_item_1){
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                TextView view = (TextView) super.getView(position, convertView, parent);
-                view.setTextSize( 14 );
-                view.setHeight( 14 ) ;
-                view.setMinimumHeight( 14 ) ;
-                return view;
-            }
-        };
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//                android.R.layout.simple_expandable_list_item_1){
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//                TextView view = (TextView) super.getView(position, convertView, parent);
+//                view.setTextSize( 14 );
+//                view.setHeight( 14 ) ;
+//                view.setMinimumHeight( 14 ) ;
+//                return view;
+//            }
+//        };
         if(Html_instructionsList.length > 0){
             //adapter.clear();
-            adapter.addAll(Html_instructionsList);
-            Html_instructionsListView.setAdapter(adapter);
+            //adapter.addAll(Html_instructionsList);
+            //Html_instructionsListView.setAdapter(adapter);
 
             legsDistanceTextView.setText("到着まで"+legsDistanceText);
             legsDurationTextView.setText("到着まで"+legsDurationText);
 
             stepsFirstDistanceTextView.setText("次"+stepsFirstDistanceText);
             stepsFirstDurationTextView.setText("次"+stepsFirstDurationText);
+
+            String str = null;
+
+            for(int i = 0;i<Html_instructionsList.length;i++){
+                str += Html_instructionsList[i];
+
+            }
+            Html_instructionsListText.setText(str);
         }
     }
 

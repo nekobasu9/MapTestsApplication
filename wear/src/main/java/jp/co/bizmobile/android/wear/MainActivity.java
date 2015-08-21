@@ -146,7 +146,7 @@ public class MainActivity extends WearableActivity implements DataApi.DataListen
             } else if (event.getType() == DataEvent.TYPE_CHANGED) {
                 Log.d(TAG, "DataItem changed: " + event.getDataItem().getUri());
                 DataItem item = event.getDataItem();
-                if(item.getUri().getPath().equals("/path"));{
+                if(item.getUri().getPath().equals("/pathMaps"));{
                     DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
                     Html_instructionsList = dataMap.getStringArray("Html_instructionsList");
 

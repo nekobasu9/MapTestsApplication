@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -25,7 +27,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderApi;
-import com.google.android.gms.location.LocationListener;
+//import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
@@ -51,8 +53,6 @@ import java.util.List;
  * Created by shotaroyoshida on 2015/08/19.
  */
 public class GetRoot extends Activity implements
-        GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient. OnConnectionFailedListener,
         LocationListener {
 
     private RequestQueue mQueue;
@@ -90,15 +90,15 @@ public class GetRoot extends Activity implements
 
 
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(LocationServices.API)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
-
-
-
-        mGoogleApiClient.connect();
+//        mGoogleApiClient = new GoogleApiClient.Builder(this)
+//                .addApi(LocationServices.API)
+//                .addConnectionCallbacks(this)
+//                .addOnConnectionFailedListener(this)
+//                .build();
+//
+//
+//
+//        mGoogleApiClient.connect();
 
     }
 
@@ -219,40 +219,40 @@ public class GetRoot extends Activity implements
 //    }
 
 
-    @Override
-    public void onLocationChanged(Location location){
-        Log.d("GetRoot","onLocationChanged");
-
-    }
-    @Override
-    public void onConnected(Bundle bundle) {
-        //Wearable.DataApi.addListener(mGoogleApiClient, this);
-        //Wearable.DataApi.addListener(mGoogleApiClient, this);
-        Log.d("TAG", "onConnected");
-        Location currentLocation = fusedLocationProviderApi.getLastLocation(mGoogleApiClient);
-        if(currentLocation != null) {
-            origin = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-            //String str = String.valueOf(origin.latitude);
-            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-            sharedPreferences.edit().putString("origin_latitude",String.valueOf(origin.latitude)).apply();
-            sharedPreferences.edit().putString("origin_longitude",String.valueOf(origin.longitude)).apply();
-
-            root();
-        }
-        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-
-    }
-    @Override
-    public void onConnectionSuspended(int i) {
-        Log.d("TAG", "onConnectionSuspended");
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.e("TAG", "onConnectionFailed: " + connectionResult);
-    }
+//    @Override
+//    public void onLocationChanged(Location location){
+//        Log.d("GetRoot","onLocationChanged");
+//
+//    }
+//    @Override
+//    public void onConnected(Bundle bundle) {
+//        //Wearable.DataApi.addListener(mGoogleApiClient, this);
+//        //Wearable.DataApi.addListener(mGoogleApiClient, this);
+//        Log.d("TAG", "onConnected");
+//        Location currentLocation = fusedLocationProviderApi.getLastLocation(mGoogleApiClient);
+//        if(currentLocation != null) {
+//            origin = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+//            //String str = String.valueOf(origin.latitude);
+//            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//
+//            sharedPreferences.edit().putString("origin_latitude",String.valueOf(origin.latitude)).apply();
+//            sharedPreferences.edit().putString("origin_longitude",String.valueOf(origin.longitude)).apply();
+//
+//            root();
+//        }
+//        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//
+//
+//    }
+//    @Override
+//    public void onConnectionSuspended(int i) {
+//        Log.d("TAG", "onConnectionSuspended");
+//    }
+//
+//    @Override
+//    public void onConnectionFailed(ConnectionResult connectionResult) {
+//        Log.e("TAG", "onConnectionFailed: " + connectionResult);
+//    }
 
 
     private List<LatLng> decodePoly(String encoded) {
@@ -349,6 +349,62 @@ public class GetRoot extends Activity implements
 
     }
 
+
+
+    @Override
+    public void onLocationChanged(Location location){
+
+        if(location != null) {
+            origin = new LatLng(location.getLatitude(), location.getLongitude());
+            //String str = String.valueOf(origin.latitude);
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+            sharedPreferences.edit().putString("origin_latitude",String.valueOf(origin.latitude)).apply();
+            sharedPreferences.edit().putString("origin_longitude",String.valueOf(origin.longitude)).apply();
+
+            root();
+        }
+
+
+
+//        text += "----------\n";
+//        text += "Latitude="+ String.valueOf(location.getLatitude())+"\n";
+//        text += "Longitude="+ String.valueOf(location.getLongitude())+"\n";
+//        textView.setText(text);
+
+    }
+
+
+    @Override
+    public void onProviderEnabled(String provider){
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras){
+
+        switch (status) {
+            case LocationProvider.AVAILABLE:
+//                text += "LocationProvider.AVAILABLE\n";
+//                textView.setText(text);
+
+                break;
+            case LocationProvider.OUT_OF_SERVICE:
+//                text += "LocationProvider.OUT_OF_SERVICE\n";
+//                textView.setText(text);
+                break;
+            case LocationProvider.TEMPORARILY_UNAVAILABLE:
+//                text += "LocationProvider.TEMPORARILY_UNAVAILABLE\n";
+//                textView.setText(text);
+                break;
+        }
+
+    }
     private void enableLocationSettings() {
         Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         startActivity(settingsIntent);
