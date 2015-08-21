@@ -36,7 +36,7 @@ app/src/release/res/values/google_maps_api.xml
 *.iml
 
 # OS-specific files
-.DS_Store
+
 .DS_Store?
 ._*
 .Spotlight-V100
