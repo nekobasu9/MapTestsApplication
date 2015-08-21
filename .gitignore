@@ -1,6 +1,10 @@
-# Built application files
-/*/build/
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
 /build
+
 # Crashlytics configuations
 com_crashlytics_export_strings.xml
 
@@ -9,6 +13,7 @@ local.properties
 
 #release GoogleApiKey
 app/src/release/res/values/google_maps_api.xml
+
 
 # Gradle generated files
 .gradle/

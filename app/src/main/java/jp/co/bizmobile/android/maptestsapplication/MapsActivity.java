@@ -79,6 +79,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String legsDurationText;
     String stepsFirstDurationText;
     String stepsFirstDistanceText;
+    int stepsFirstDistanceValue = 0;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -89,7 +90,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
+        
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(this)
                 .addApi(Wearable.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -179,7 +182,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onStart() {
         super.onStart();
         Log.d(TAG, "onStart()");
-        mGoogleApiClient.connect();
+        //mGoogleApiClient.connect();
     }
 
 
@@ -324,6 +327,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         stepsFirstDurationText = sharedPreferences.getString("stepsFirstDistanceText",null);
         stepsFirstDistanceText = sharedPreferences.getString("stepsFirstDistanceText",null);
+        stepsFirstDistanceValue = sharedPreferences.getInt("stepsFirstDistanceValue",0);
 
 
 
@@ -336,17 +340,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void run() {
                 Log.d("handler", "sendWear");
-                PutDataMapRequest mapReq = PutDataMapRequest.create("/path");
+                PutDataMapRequest mapReq = PutDataMapRequest.create("/pathMaps");
                 mapReq.getDataMap().putStringArray("Html_instructionsList", Html_instructionsList);
 
                 mapReq.getDataMap().putString("legsDistanceText", legsDistanceText);
                 mapReq.getDataMap().putString("legsDurationText", legsDurationText);
                 mapReq.getDataMap().putString("stepsFirstDurationText", stepsFirstDurationText);
                 mapReq.getDataMap().putString("stepsFirstDistanceText", stepsFirstDistanceText);
+                mapReq.getDataMap().putInt("stepsFirstDistanceValue",stepsFirstDistanceValue);
 
 
                 PutDataRequest request = mapReq.asPutDataRequest();
                 if (!mGoogleApiClient.isConnected()) {
+                    Log.d("Failed","Failed");
                     return;
                 }
                 Wearable.DataApi.putDataItem(mGoogleApiClient, request)
@@ -355,6 +361,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             public void onResult(DataApi.DataItemResult dataItemResult) {
                                 if (!dataItemResult.getStatus().isSuccess()) {
                                     Log.e(TAG, "ERROR: failed to putDataItem, status code: "
+                                            + dataItemResult.getStatus().getStatusCode());
+                                }else{
+                                    Log.d(TAG, "status code: "
                                             + dataItemResult.getStatus().getStatusCode());
                                 }
                             }
@@ -382,7 +391,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         stockStepsFirstPolylinePoint = stepsFirstPolylinePoint;
 
     }
-
 
 
     private List<LatLng> decodePoly(String encoded) {
@@ -419,7 +427,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return poly;
     }
 
-/////////////////////
+
     private String getDirectionsUrl(){
 
 
@@ -458,12 +466,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         return url;
     }
-
-    ////////////////////
     @Override
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
+        mGoogleApiClient.connect();
     }
 
     /**
@@ -536,13 +543,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onDataChanged(DataEventBuffer dataEvents) {
+        Log.d("change","change");
         for (DataEvent event : dataEvents) {
             if (event.getType() == DataEvent.TYPE_CHANGED) {
                 DataItem item = event.getDataItem();
-                if (item.getUri().getPath().equals("/testapp")) {
+                if (item.getUri().getPath().equals("/pathMaps")) {
                     DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
-                    String name = dataMap.getString("name"); // "shokai"
-                    String url  = dataMap.getString("url");  // "http://shokai.org"
+                    //Html_instructionsList = dataMap.getStringArray("Html_instructionsList");
+
+                    legsDistanceText = dataMap.getString("legsDistanceText");
+//                    legsDurationText = dataMap.getString("legsDurationText");
+//                    stepsFirstDurationText = dataMap.getString("stepsFirstDurationText");
+//                    stepsFirstDistanceText = dataMap.getString("stepsFirstDistanceText");
+                    Log.d("legsDistanceText",legsDistanceText);
+
                 }
             } else if (event.getType() == DataEvent.TYPE_DELETED) {
                 // 削除イベント
@@ -552,7 +566,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onConnected(Bundle bundle) {
         Wearable.DataApi.addListener(mGoogleApiClient, this);
-        //Wearable.DataApi.addListener(mGoogleApiClient, this);
         Log.d("TAG", "onConnected");
     }
     @Override
