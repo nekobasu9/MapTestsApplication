@@ -40,12 +40,12 @@ public class SendWear extends Activity implements GoogleApiClient.ConnectionCall
 
     private static final String TAG = "SendWear";
 
-    void sendWear(){
+    void sendWear(Context context){
 
 
 
         //これあとで試してみる
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
+        mGoogleApiClient = new GoogleApiClient.Builder(context)
                 .addApi(Wearable.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -62,7 +62,7 @@ public class SendWear extends Activity implements GoogleApiClient.ConnectionCall
 
        // sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        sharedPreferences = getSharedPreferences("maps", Context.MODE_MULTI_PROCESS);
+        sharedPreferences = context.getSharedPreferences("maps", Context.MODE_MULTI_PROCESS);
 
         String str = sharedPreferences.getString("Html_instructionsList",null);
         Html_instructionsList = gson.fromJson(str, String[].class);

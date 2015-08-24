@@ -151,14 +151,14 @@ public class GetRoot extends Activity implements
                             sharedPreferences.edit().putString("directionData", jsonInstanceString).apply();
 
                             ParceJson parceJson = new ParceJson();
-                            parceJson.parce(getApplicationContext(), response);
+                            parceJson.parce(context, response);
 
 
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
 
-                        new SendWear().sendWear();
+                        new SendWear().sendWear(context);
                         //startReceiver();
 
 
