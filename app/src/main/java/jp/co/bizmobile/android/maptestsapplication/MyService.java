@@ -198,10 +198,11 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
     void setLocationTime(){
         int stepsFirstDrationValue = sharedPreferences.getInt("stepsFirstDrationValue", 0);
 
+        Log.d("setlocation","ServicesetLocationTime");
         if (stepsFirstDrationValue <= 120){
 
             requestTime = stepsFirstDrationValue;
-            Log.d("stepsFirstDrationValue","sonomama"+stepsFirstDrationValue);
+            Log.d("stepsFirstDrationValue","SERVICEsonomama"+stepsFirstDrationValue);
 
         }else{
 
@@ -209,6 +210,7 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
             Log.d("stepsFirstDrationValue","hanbun"+stepsFirstDrationValue);
         }
 
+        Log.d("requestTime",String.valueOf(requestTime));
         requestTime *=1000;
         //mLocationRequest.setInterval(requestTime);
 

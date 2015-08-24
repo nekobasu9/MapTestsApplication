@@ -194,6 +194,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     protected void root(){
+        Log.d("MapsActivity","root");
         String url = getDirectionsUrl();
 
         mQueue = Volley.newRequestQueue(this);
@@ -286,14 +287,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (stepsFirstDrationValue <= 120){
 
             requestTime = stepsFirstDrationValue;
-            Log.d("stepsFirstDrationValue","sonomama"+stepsFirstDrationValue);
+            Log.d("stepsFirstDrationValue","MAPSsonomama"+stepsFirstDrationValue);
 
         }else{
 
             requestTime = stepsFirstDrationValue / 2;
             Log.d("stepsFirstDrationValue","hanbun"+stepsFirstDrationValue);
         }
-        //requestTime *= 1000;
+        requestTime *= 1000;
 //        Handler handler = new Handler();
 //        handler.postDelayed(new Runnable() {
 //            @Override
@@ -590,6 +591,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         Log.e("TAG", "onConnectionFailed: " + connectionResult);
+
     }
 
 

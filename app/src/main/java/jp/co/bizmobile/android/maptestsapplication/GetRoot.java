@@ -91,13 +91,13 @@ public class GetRoot extends Activity implements
 //        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
 
-        locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
-
-        final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        if (!gpsEnabled) {
-            // GPSを設定するように促す
-            enableLocationSettings();
-        }
+//        locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
+//
+//        final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+//        if (!gpsEnabled) {
+//            // GPSを設定するように促す
+//            enableLocationSettings();
+//        }
 
 
         //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000,50,this);
