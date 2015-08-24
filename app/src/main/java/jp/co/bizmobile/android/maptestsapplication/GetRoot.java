@@ -338,16 +338,16 @@ public class GetRoot extends Activity implements
 //        }, requestTime);
 
 
-
-        Intent intent = new Intent(GetRoot.this,ReceiverAlert.class);
-        PendingIntent sender = PendingIntent.getBroadcast(GetRoot.this,0,intent,0);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.SECOND, requestTime);
-
-        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),sender);
+//
+//        Intent intent = new Intent(GetRoot.this,ReceiverAlert.class);
+//        PendingIntent sender = PendingIntent.getBroadcast(GetRoot.this,0,intent,0);
+//
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTimeInMillis(System.currentTimeMillis());
+//        calendar.add(Calendar.SECOND, requestTime);
+//
+//        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+//        alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),sender);
 
         //Toast.makeText(MapsActivity.this, "Start Alarm!", Toast.LENGTH_SHORT).show();
         Log.d("alarm","alarmStart");
