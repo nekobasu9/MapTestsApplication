@@ -1,6 +1,7 @@
 package jp.co.bizmobile.android.maptestsapplication;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -58,7 +59,11 @@ public class SendWear extends Activity implements GoogleApiClient.ConnectionCall
 
         Log.d("startSendWear","startSendWear");
         gson = new Gson();
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+       // sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        sharedPreferences = getSharedPreferences("maps", Context.MODE_MULTI_PROCESS);
+
         String str = sharedPreferences.getString("Html_instructionsList",null);
         Html_instructionsList = gson.fromJson(str, String[].class);
 

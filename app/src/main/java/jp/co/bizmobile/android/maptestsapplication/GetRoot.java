@@ -2,6 +2,7 @@ package jp.co.bizmobile.android.maptestsapplication;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -71,11 +72,18 @@ public class GetRoot extends Activity implements
 
     private LocationManager locationManager;
 
+    Context context;
 
 //
 //    @Override
 //    protected void onCreate(final Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
+
+    GetRoot(Context appContext){
+
+        context = appContext;
+
+    }
 
 
     void getLocation(){
@@ -115,9 +123,14 @@ public class GetRoot extends Activity implements
 
 
 
+//        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        sharedPreferences = context.getSharedPreferences("maps", Context.MODE_MULTI_PROCESS);
+        //Toast.makeText(this, "sharedPreferences", Toast.LENGTH_SHORT).show();
+        Log.d("GetRoot","sharedPreferences");
+
         String url = getDirectionsUrl();
 
-        mQueue = Volley.newRequestQueue(this);
+        mQueue = Volley.newRequestQueue(context);
         mQueue.add(new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -132,7 +145,7 @@ public class GetRoot extends Activity implements
 
                             gson = new Gson();
                             String jsonInstanceString = gson.toJson(response);
-                            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
                             //SharedPreferences data = getSharedPreferences("directionDataSave", Context.MODE_PRIVATE);
                             sharedPreferences.edit().putString("directionData", jsonInstanceString).apply();
@@ -146,7 +159,7 @@ public class GetRoot extends Activity implements
                         }
 
                         new SendWear().sendWear();
-                        startReceiver();
+                        //startReceiver();
 
 
 //                        try {
@@ -171,7 +184,7 @@ public class GetRoot extends Activity implements
     private String getDirectionsUrl(){
 
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
 
         String str_origin_latitude = sharedPreferences.getString("origin_latitude", null);
@@ -298,7 +311,7 @@ public class GetRoot extends Activity implements
 
     void startReceiver(){
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 
         int stepsFirstDrationValue = sharedPreferences.getInt("stepsFirstDrationValue", 0);
@@ -363,7 +376,8 @@ public class GetRoot extends Activity implements
         if(location != null) {
             origin = new LatLng(location.getLatitude(), location.getLongitude());
             //String str = String.valueOf(origin.latitude);
-            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            sharedPreferences = context.getSharedPreferences("maps",Context.MODE_MULTI_PROCESS);
 
             sharedPreferences.edit().putString("origin_latitude",String.valueOf(origin.latitude)).apply();
             sharedPreferences.edit().putString("origin_longitude",String.valueOf(origin.longitude)).apply();

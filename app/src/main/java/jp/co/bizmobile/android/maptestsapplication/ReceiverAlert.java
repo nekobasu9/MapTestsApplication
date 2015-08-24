@@ -64,8 +64,8 @@ public class ReceiverAlert extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         Log.d("getalerm","getalerm");
-        getRoot = new GetRoot();
-        getRoot.getLocation();
+        //getRoot = new GetRoot();
+        //getRoot.getLocation();
 
 
             /*

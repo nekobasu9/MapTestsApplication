@@ -54,6 +54,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -88,7 +89,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setUpMapIfNeeded();
 
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences = getSharedPreferences("maps",Context.MODE_MULTI_PROCESS);
 
         
         mGoogleApiClient = new GoogleApiClient
@@ -100,6 +102,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         mMap.setMyLocationEnabled(true);
+        mMap.getMyLocation();
 
         markerPoints = new ArrayList<LatLng>();
 
@@ -156,21 +159,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
         // 停止ボタン
-        Button btn2 = (Button)this.findViewById(R.id.button);
-        btn2.setOnClickListener(new View.OnClickListener() {
+        Button btn = (Button)this.findViewById(R.id.button);
+        btn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
                 // Pending Intent使ってレシーバーをセットする
 //                PendingIntent sender = MapsActivity.this.getPending(MainActivity.this, 0);
-                Intent intent = new Intent(MapsActivity.this, ReceiverAlert.class);
-                PendingIntent sender = PendingIntent.getBroadcast(MapsActivity.this, 0, intent, 0);
+//                Intent intent = new Intent(MapsActivity.this, ReceiverAlert.class);
+//                PendingIntent sender = PendingIntent.getBroadcast(MapsActivity.this, 0, intent, 0);
+//
+//
+//                // アラームを解除する
+//                AlarmManager am = (AlarmManager) MapsActivity.this.getSystemService(ALARM_SERVICE);
+//                am.cancel(sender);
 
-
-                // アラームを解除する
-                AlarmManager am = (AlarmManager) MapsActivity.this.getSystemService(ALARM_SERVICE);
-                am.cancel(sender);
+                stopService(new Intent(MapsActivity.this,MyService.class));
 
                 Toast.makeText(MapsActivity.this, TAG + ": Alarmキャンセル！", Toast.LENGTH_SHORT).show();
                 Log.d("cancel", "cancel");
@@ -210,7 +215,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             gson = new Gson();
                             String jsonInstanceString = gson.toJson(response);
-                            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
                             //SharedPreferences data = getSharedPreferences("directionDataSave", Context.MODE_PRIVATE);
                             sharedPreferences.edit().putString("directionData", jsonInstanceString).apply();
@@ -273,7 +278,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     void startTimer(){
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 
         int stepsFirstDrationValue = sharedPreferences.getInt("stepsFirstDrationValue", 0);
@@ -300,16 +305,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        }, requestTime);
 
 
-        Intent intent = new Intent(MapsActivity.this,ReceiverAlert.class);
-        PendingIntent sender = PendingIntent.getBroadcast(MapsActivity.this,0,intent,0);
+        startService(new Intent(MapsActivity.this,MyService.class));
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.SECOND, 10);
-        //calendar.add(Calendar.SECOND, requestTime);
-
-        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),sender);
+//        Intent intent = new Intent(MapsActivity.this,ReceiverAlert.class);
+//        PendingIntent sender = PendingIntent.getBroadcast(MapsActivity.this,0,intent,0);
+//
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTimeInMillis(System.currentTimeMillis());
+//        calendar.add(Calendar.SECOND, 10);
+//        //calendar.add(Calendar.SECOND, requestTime);
+//
+//        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+//        alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),sender);
 
         Toast.makeText(MapsActivity.this, "Start Alarm!", Toast.LENGTH_SHORT).show();
         Log.d(TAG,"alarmStart");
@@ -321,8 +328,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     void sendWear(){
         Log.d("startSendWear","startSendWear");
         gson = new Gson();
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String str = sharedPreferences.getString("Html_instructionsList",null);
+        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        //sharedPreferences = getSharedPreferences("maps",Context.MODE_MULTI_PROCESS);
+        String str = sharedPreferences.getString("Html_instructionsList", null);
+
         Html_instructionsList = gson.fromJson(str, String[].class);
 
         legsDistanceText = sharedPreferences.getString("legsDistanceText", null);
@@ -379,7 +388,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     void nannkamethod(){
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String stepsFirstPolylinePoint = sharedPreferences.getString("stepsFirstPolylinePoint", null);
         String stepsSecondPolylinePoint = sharedPreferences.getString("stepsSecondPolylinePoint",null);
 
@@ -434,7 +443,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String getDirectionsUrl(){
 
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 
         String str_origin_latitude = sharedPreferences.getString("origin_latitude", null);
@@ -458,8 +467,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         String sensor = "sensor=false";
 
+        String language = Locale.getDefault().getLanguage();
+        Log.d("locale",language);
         //パラメータ
-        String parameters = str_origin+"&"+str_dest+"&"+sensor + "&language=ja" + "&mode=" + "driving";
+        String parameters = str_origin+"&"+str_dest+"&"+sensor + "&language="+language + "&mode=" + "driving";
 
         //JSON指定
         String output = "json";

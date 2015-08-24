@@ -1,6 +1,7 @@
 package jp.co.bizmobile.android.maptestsapplication;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
@@ -34,11 +35,16 @@ public class MyService extends Service implements LocationListener {
     LatLng origin;
     LatLng dest;
 
+    GetRoot getRoot = null;
+
     @Override
     public void onCreate() {
         Log.i(TAG, "onCreate");
         Toast.makeText(this, "MyService#onCreate", Toast.LENGTH_SHORT).show();
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences = getSharedPreferences("maps", Context.MODE_MULTI_PROCESS);
+        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        getRoot = new GetRoot(getApplicationContext());
 
         //textView = (TextView)findViewById(R.id.textView);
 
@@ -91,13 +97,18 @@ public class MyService extends Service implements LocationListener {
         if(location != null) {
             origin = new LatLng(location.getLatitude(), location.getLongitude());
             //String str = String.valueOf(origin.latitude);
-            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+            sharedPreferences = getSharedPreferences("maps",Context.MODE_MULTI_PROCESS);
 
             sharedPreferences.edit().putString("origin_latitude", String.valueOf(origin.latitude)).apply();
             sharedPreferences.edit().putString("origin_longitude", String.valueOf(origin.longitude)).apply();
+            Toast.makeText(this, String.valueOf(origin.latitude)+"++++++++"+String.valueOf(origin.longitude), Toast.LENGTH_SHORT).show();
 
 
-            Log.d("service", text);
+            getRoot.root();
+            setLocationTime();
+            //Log.d("service", text);
         }
 
     }
@@ -156,7 +167,8 @@ public class MyService extends Service implements LocationListener {
 
         //明示的にサービスの起動、停止が決められる場合の返り値
 
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, requestTime, Math.abs(requestTime-50), this);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, requestTime, Math.abs(requestTime-50), this);
     }
 
 }

@@ -44,9 +44,10 @@ public class ParceJson extends Activity{
     SharedPreferences sharedPreferences = null;
     public void parce(Context context, JSONObject jsonObject){
         try {
-            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+            //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             // sharedPreferences = getSharedPreferences("DataSave", Activity.MODE_PRIVATE);
 
+            sharedPreferences = context.getSharedPreferences("maps", Context.MODE_MULTI_PROCESS);
 
             routeArray = jsonObject.getJSONArray("routes");
             routes = routeArray.getJSONObject(0);
