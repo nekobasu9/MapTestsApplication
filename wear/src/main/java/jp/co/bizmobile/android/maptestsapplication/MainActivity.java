@@ -40,7 +40,7 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
     TextView stepsFirstDurationTextView = null;
     TextView stepsFirstDistanceTextView = null;
 
-    TextView Html_instructionsListText = null;
+    TextView Html_instructionsListText;
 
     //ListView Html_instructionsListView = null;
 
@@ -122,7 +122,8 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
             stepsFirstDistanceTextView.setTextColor(getResources().getColor(android.R.color.white));
             stepsFirstDurationTextView.setTextColor(getResources().getColor(android.R.color.white));
 
-            //Html_instructionsListView.setTextColor(getResources().getColor(android.R.color.white));
+            Html_instructionsListText.setTextColor(getResources().getColor(android.R.color.white));
+
 
 
 
@@ -139,7 +140,7 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
             stepsFirstDistanceTextView.setTextColor(getResources().getColor(android.R.color.black));
             stepsFirstDurationTextView.setTextColor(getResources().getColor(android.R.color.black));
 
-            Html_instructionsListText.setTextColor(getResources().getColor(android.R.color.white));
+            Html_instructionsListText.setTextColor(getResources().getColor(android.R.color.black));
 
 
 //            mTextView.setTextColor(getResources().getColor(android.R.color.black));
@@ -184,7 +185,7 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
             stepsFirstDistanceTextView.setText("次"+stepsFirstDistanceText);
             stepsFirstDurationTextView.setText("次"+stepsFirstDurationText);
 
-            String str = null;
+            String str ="";
 
             for(int i = 0;i<Html_instructionsList.length;i++){
                 str += Html_instructionsList[i];

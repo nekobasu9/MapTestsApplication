@@ -353,7 +353,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void run() {
                 Log.d("handler", "sendWear");
-                PutDataMapRequest mapReq = PutDataMapRequest.create("/pathMaps");
+                PutDataMapRequest mapReq = PutDataMapRequest.create("/path");
                 mapReq.getDataMap().putStringArray("Html_instructionsList", Html_instructionsList);
 
                 mapReq.getDataMap().putString("legsDistanceText", legsDistanceText);
@@ -562,7 +562,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (DataEvent event : dataEvents) {
             if (event.getType() == DataEvent.TYPE_CHANGED) {
                 DataItem item = event.getDataItem();
-                if (item.getUri().getPath().equals("/pathMaps")) {
+                if (item.getUri().getPath().equals("/path")) {
                     DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
                     //Html_instructionsList = dataMap.getStringArray("Html_instructionsList");
 

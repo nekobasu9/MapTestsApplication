@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderApi;
+import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
@@ -43,13 +46,15 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
     LatLng dest;
     GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
+    private FusedLocationProviderApi fusedLocationProviderApi = LocationServices.FusedLocationApi;
 
+    Handler handler = null;
     GetRoot getRoot = null;
 
     @Override
     public void onCreate() {
         Log.i(TAG, "onCreate");
-        Toast.makeText(this, "MyService#onCreate", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "MyService#onCreate", Toast.LENGTH_SHORT).show();
         sharedPreferences = getSharedPreferences("maps", Context.MODE_MULTI_PROCESS);
         //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -60,6 +65,7 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
         //locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
 
 
+        handler = new Handler();
         mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
                 .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
@@ -67,7 +73,7 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
                 .build();
         mLocationRequest = new LocationRequest();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setInterval(10000);
+        //mLocationRequest.setInterval(10000);
 
 
         mGoogleApiClient.connect();
@@ -98,7 +104,7 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG, "onStartCommand Received start id " + startId + ": " + intent);
-        Toast.makeText(this, "MyService#onStartCommand", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "MyService#onStartCommand", Toast.LENGTH_SHORT).show();
 
 
         //setLocationTime();
@@ -110,6 +116,7 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
     public void onDestroy() {
         Log.i(TAG, "onDestroy");
 
+        handler = null;
         LocationServices.FusedLocationApi.removeLocationUpdates(
                 mGoogleApiClient, this);
         mGoogleApiClient.disconnect();
@@ -142,7 +149,7 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
 
             sharedPreferences.edit().putString("origin_latitude", String.valueOf(origin.latitude)).apply();
             sharedPreferences.edit().putString("origin_longitude", String.valueOf(origin.longitude)).apply();
-            Toast.makeText(this, String.valueOf(origin.latitude)+"++++++++"+String.valueOf(origin.longitude), Toast.LENGTH_SHORT).show();
+            //.makeText(this, String.valueOf(origin.latitude)+"++++++++"+String.valueOf(origin.longitude), Toast.LENGTH_SHORT).show();
 
 
             getRoot.root();
@@ -198,7 +205,7 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
     void setLocationTime(){
         int stepsFirstDrationValue = sharedPreferences.getInt("stepsFirstDrationValue", 0);
 
-        Log.d("setlocation","ServicesetLocationTime");
+        Log.d("setlocation", "ServicesetLocationTime");
         if (stepsFirstDrationValue <= 120){
 
             requestTime = stepsFirstDrationValue;
@@ -214,14 +221,29 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
         requestTime *=1000;
         //mLocationRequest.setInterval(requestTime);
 
-        LocationServices.FusedLocationApi.requestLocationUpdates(
-                mGoogleApiClient, mLocationRequest, this);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+//                fusedLocationProviderApi.requestLocationUpdates(
+//                        mGoogleApiClient, mLocationRequest, );
+                touroku();
+            }
+        }, requestTime);
+
+//        LocationServices.FusedLocationApi.requestLocationUpdates(
+//                mGoogleApiClient, mLocationRequest,this );
 
 
         //明示的にサービスの起動、停止が決められる場合の返り値
 
         //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, requestTime, Math.abs(requestTime-50), this);
+    }
+
+    void touroku(){
+        LocationServices.FusedLocationApi.requestLocationUpdates(
+                mGoogleApiClient, mLocationRequest,this );
+
     }
 
 
