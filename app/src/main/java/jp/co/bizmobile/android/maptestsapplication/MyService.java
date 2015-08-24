@@ -2,6 +2,7 @@ package jp.co.bizmobile.android.maptestsapplication;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -9,10 +10,14 @@ import android.location.LocationProvider;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Created by shotaroyoshida on 2015/08/21.
  */
@@ -23,10 +28,17 @@ public class MyService extends Service implements LocationListener {
     private LocationManager locationManager;
     private TextView textView = null;
     String text = null;
+    SharedPreferences sharedPreferences;
+    int requestTime;
+
+    LatLng origin;
+    LatLng dest;
+
     @Override
     public void onCreate() {
         Log.i(TAG, "onCreate");
         Toast.makeText(this, "MyService#onCreate", Toast.LENGTH_SHORT).show();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         //textView = (TextView)findViewById(R.id.textView);
 
@@ -40,15 +52,17 @@ public class MyService extends Service implements LocationListener {
             enableLocationSettings();
         }
 
+
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG, "onStartCommand Received start id " + startId + ": " + intent);
         Toast.makeText(this, "MyService#onStartCommand", Toast.LENGTH_SHORT).show();
-        //明示的にサービスの起動、停止が決められる場合の返り値
 
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 50, this);
+
+        setLocationTime();
+
         return START_STICKY;
     }
 
@@ -68,13 +82,23 @@ public class MyService extends Service implements LocationListener {
     @Override
     public void onLocationChanged(Location location){
 
-        Log.d("change","change");
-        text += "----------\n";
-        text += "Latitude="+ String.valueOf(location.getLatitude())+"\n";
-        text += "Longitude="+ String.valueOf(location.getLongitude())+"\n";
+        Log.d("change", "change");
+//        text += "----------\n";
+//        text += "Latitude="+ String.valueOf(location.getLatitude())+"\n";
+//        text += "Longitude="+ String.valueOf(location.getLongitude())+"\n";
         //textView.setText(text);
 
-        Log.d("service",text);
+        if(location != null) {
+            origin = new LatLng(location.getLatitude(), location.getLongitude());
+            //String str = String.valueOf(origin.latitude);
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+            sharedPreferences.edit().putString("origin_latitude", String.valueOf(origin.latitude)).apply();
+            sharedPreferences.edit().putString("origin_longitude", String.valueOf(origin.longitude)).apply();
+
+
+            Log.d("service", text);
+        }
 
     }
 
@@ -113,6 +137,26 @@ public class MyService extends Service implements LocationListener {
     private void enableLocationSettings() {
         Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         startActivity(settingsIntent);
+    }
+
+    void setLocationTime(){
+        int stepsFirstDrationValue = sharedPreferences.getInt("stepsFirstDrationValue", 0);
+
+        if (stepsFirstDrationValue <= 120){
+
+            requestTime = stepsFirstDrationValue;
+            Log.d("stepsFirstDrationValue","sonomama"+stepsFirstDrationValue);
+
+        }else{
+
+            requestTime = stepsFirstDrationValue / 2;
+            Log.d("stepsFirstDrationValue","hanbun"+stepsFirstDrationValue);
+        }
+
+
+        //明示的にサービスの起動、停止が決められる場合の返り値
+
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, requestTime, Math.abs(requestTime-50), this);
     }
 
 }
