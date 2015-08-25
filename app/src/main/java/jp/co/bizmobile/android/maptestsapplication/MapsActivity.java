@@ -241,6 +241,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             gson = new Gson();
                             String jsonInstanceString = gson.toJson(response);
+
+
+                            /*
+                            DEBUG
+                             */
+                            Log.d("responsJson",response.toString(4));
+
+
                             //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
                             //SharedPreferences data = getSharedPreferences("directionDataSave", Context.MODE_PRIVATE);

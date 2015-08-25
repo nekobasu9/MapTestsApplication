@@ -41,6 +41,8 @@ public class ParceJson extends Activity{
     private String[] Html_instructionsList;
     private Gson gson;
 
+    private String maneuver;
+
     SharedPreferences sharedPreferences = null;
     public void parce(Context context, JSONObject jsonObject){
         try {
@@ -63,6 +65,7 @@ public class ParceJson extends Activity{
             stepsFirstDistance = stepsFirst.getJSONObject("distance");
             stepsFirstDuration = stepsFirst.getJSONObject("duration");
             stepsFirstPolylinePoint = stepsFirst.getJSONObject("polyline").getString("points");
+            maneuver = stepsSecond.getString("maneuver");
 
 
             Log.d("polylinepoint", stepsFirstPolylinePoint);
@@ -107,6 +110,7 @@ public class ParceJson extends Activity{
             //String str = stepsSecondHtml_instructions;
             String strRight = "<b>right</b>";
             String strLeft = "<b>left</b>";
+            String strExit = "exit";
 
 
 
@@ -131,11 +135,6 @@ public class ParceJson extends Activity{
             }
             gson = new Gson();
             sharedPreferences.edit().putString("Html_instructionsList",gson.toJson(Html_instructionsList)).apply();
-
-
-
-
-
 
             Log.d("sharedPreferences",sharedPreferences.toString());
 
