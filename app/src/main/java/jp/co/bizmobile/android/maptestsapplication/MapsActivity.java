@@ -136,8 +136,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.clear();
                 dest = latLng;
 
-                sharedPreferences.edit().putString("dest_latitude",String.valueOf(dest.latitude)).apply();
-                sharedPreferences.edit().putString("dest_longitude",String.valueOf(dest.longitude)).apply();
+                sharedPreferences.edit().putString("dest_latitude", String.valueOf(dest.latitude)).apply();
+                sharedPreferences.edit().putString("dest_longitude", String.valueOf(dest.longitude)).apply();
 
 
                 //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences();
@@ -153,10 +153,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.d("origin", "" + latLng.latitude);
                 Log.d("dest", "" + latLng.longitude);
 
-
+//                Handler handler = new Handler();
+//                handler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        root();
+//                    }
+//                });
                 root();
             }
         });
+
+
+        /*
+        test
+         */
+
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+                sharedPreferences.edit().putString("origin_latitude_test", String.valueOf(latLng.latitude)).apply();
+                sharedPreferences.edit().putString("origin_longitude_test", String.valueOf(latLng.longitude)).apply();
+
+                markerPoints.add(latLng);
+                options = new MarkerOptions();
+                options.position(latLng);
+                mMap.addMarker(options);
+            }
+        });
+
 
         // 停止ボタン
         Button btn = (Button)this.findViewById(R.id.button);
@@ -454,9 +479,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+//
+//        String str_origin_latitude = sharedPreferences.getString("origin_latitude", null);
+//        String str_oringi_longitude = sharedPreferences.getString("origin_longitude", null);
 
-        String str_origin_latitude = sharedPreferences.getString("origin_latitude", null);
-        String str_oringi_longitude = sharedPreferences.getString("origin_longitude", null);
+        String str_origin_latitude = sharedPreferences.getString("origin_latitude_test", null);
+        String str_oringi_longitude = sharedPreferences.getString("origin_longitude_test", null);
+
+
+
 
 
         String str_origin = "origin="+str_origin_latitude+","+str_oringi_longitude;

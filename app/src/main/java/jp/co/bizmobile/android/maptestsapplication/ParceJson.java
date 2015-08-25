@@ -99,6 +99,19 @@ public class ParceJson extends Activity{
 
             sharedPreferences.edit().putString("stepsSecondPolylinePoint", stepsSecondPolylinePoint).apply();
             sharedPreferences.edit().putString("stepsSecondHtml_instructions", stepsSecondHtml_instructions).apply();
+
+            /*
+            testmethod
+             */
+
+            //String str = stepsSecondHtml_instructions;
+            String strRight = "<b>right</b>";
+            String strLeft = "<b>left</b>";
+
+
+
+
+
             Html_instructionsList = stepsSecondHtml_instructions.split("</b>",0);
             for(int i= 0 ; i<Html_instructionsList.length-1 ;i++ ){
 
