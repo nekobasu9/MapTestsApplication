@@ -52,6 +52,7 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
     String stepsFirstDurationText = null;
     String stepsFirstDistanceText = null;
     int stepsFirstDistanceValue = 0;
+    String manuever;
 
     private static final String TAG = "WearActivity";
 
@@ -214,6 +215,7 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
                     stepsFirstDurationText = dataMap.getString("stepsFirstDurationText");
                     stepsFirstDistanceText = dataMap.getString("stepsFirstDistanceText");
                     stepsFirstDistanceValue = dataMap.getInt("stepsFirstDistanceValue");
+                    manuever = dataMap.getString("manuever");
                     Log.d("legsDistanceText",legsDistanceText);
                     runOnUiThread(new Runnable() {
                         @Override

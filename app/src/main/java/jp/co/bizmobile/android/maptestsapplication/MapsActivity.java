@@ -81,6 +81,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String stepsFirstDurationText;
     String stepsFirstDistanceText;
     int stepsFirstDistanceValue = 0;
+    String manuever;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -372,10 +373,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         legsDurationText = sharedPreferences.getString("legsDurationText", null);
 
         stepsFirstDurationText = sharedPreferences.getString("stepsFirstDistanceText",null);
-        stepsFirstDistanceText = sharedPreferences.getString("stepsFirstDistanceText",null);
-        stepsFirstDistanceValue = sharedPreferences.getInt("stepsFirstDistanceValue",0);
+        stepsFirstDistanceText = sharedPreferences.getString("stepsFirstDistanceText", null);
+        stepsFirstDistanceValue = sharedPreferences.getInt("stepsFirstDistanceValue", 0);
+
+        manuever = sharedPreferences.getString("maneuver", null);
 
 
+        //new DicideManeuver().jadgeManeuver(manuever);
 
         for(int i= 0 ; i<Html_instructionsList.length - 1; i++) {
             Log.d("Html_instructionsList", Html_instructionsList[i]);
@@ -394,6 +398,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mapReq.getDataMap().putString("stepsFirstDurationText", stepsFirstDurationText);
                 mapReq.getDataMap().putString("stepsFirstDistanceText", stepsFirstDistanceText);
                 mapReq.getDataMap().putInt("stepsFirstDistanceValue",stepsFirstDistanceValue);
+                mapReq.getDataMap().putString("manuever",manuever);
 
 
                 PutDataRequest request = mapReq.asPutDataRequest();

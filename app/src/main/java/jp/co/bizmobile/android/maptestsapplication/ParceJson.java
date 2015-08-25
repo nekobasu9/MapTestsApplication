@@ -85,7 +85,7 @@ public class ParceJson extends Activity{
             sharedPreferences.edit().putInt("legsDistanceValue", legsDistance.getInt("value")).apply();
             sharedPreferences.edit().putString("legsDistanceText", legsDistance.getString("text")).apply();
 
-
+            sharedPreferences.edit().putString("maneuver",maneuver).apply();
 
 
 
