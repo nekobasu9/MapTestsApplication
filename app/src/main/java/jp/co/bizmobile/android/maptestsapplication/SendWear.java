@@ -25,7 +25,7 @@ import com.google.gson.Gson;
 /**
  * Created by shotaroyoshida on 2015/08/19.
  */
-public class SendWear extends Activity implements GoogleApiClient.ConnectionCallbacks,
+public class SendWear implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,DataApi.DataListener{
 
 
@@ -40,8 +40,14 @@ public class SendWear extends Activity implements GoogleApiClient.ConnectionCall
 
     private static final String TAG = "SendWear";
 
-    void sendWear(Context context){
+    Context context;
+    SendWear(Context appContext){
 
+        context = appContext;
+
+    }
+
+    void sendWear() {
 
 
         //これあとで試してみる
@@ -54,6 +60,8 @@ public class SendWear extends Activity implements GoogleApiClient.ConnectionCall
 
         mGoogleApiClient.connect();
 
+    }
+    void startSendWear(){
 
 
 
@@ -95,6 +103,7 @@ public class SendWear extends Activity implements GoogleApiClient.ConnectionCall
 
                 PutDataRequest request = mapReq.asPutDataRequest();
                 if (!mGoogleApiClient.isConnected()) {
+                    Log.d("sendwear","noConnected");
                     return;
                 }
                 Wearable.DataApi.putDataItem(mGoogleApiClient, request)
@@ -123,6 +132,8 @@ public class SendWear extends Activity implements GoogleApiClient.ConnectionCall
                 if (item.getUri().getPath().equals("/path")) {
                     DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
 
+                    //Log.d("sendwear",dataMap.getString("legsDistanceText",null));
+
                 }
             } else if (event.getType() == DataEvent.TYPE_DELETED) {
                 // 削除イベント
@@ -131,13 +142,16 @@ public class SendWear extends Activity implements GoogleApiClient.ConnectionCall
     }
     @Override
     public void onConnected(Bundle bundle) {
+        Log.d("TAG", "onConnected");
         Wearable.DataApi.addListener(mGoogleApiClient, this);
         //Wearable.DataApi.addListener(mGoogleApiClient, this);
-        Log.d("TAG", "onConnected");
+        startSendWear();
+
     }
     @Override
     public void onConnectionSuspended(int i) {
         Log.d("TAG", "onConnectionSuspended");
+        Wearable.DataApi.removeListener(mGoogleApiClient,this);
     }
 
     @Override

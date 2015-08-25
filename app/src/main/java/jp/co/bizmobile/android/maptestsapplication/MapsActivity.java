@@ -437,6 +437,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             poly.add(p);
         }
 
+//        for (int i = 0; i<poly.size(); i++){
+//            String str1 = String.valueOf(poly.get(i).latitude);
+//            String str2 = String.valueOf(poly.get(i).longitude);
+//            Log.d("latitude",str1);
+//            Log.d("longitude",str2);
+//        }
+
         return poly;
     }
 

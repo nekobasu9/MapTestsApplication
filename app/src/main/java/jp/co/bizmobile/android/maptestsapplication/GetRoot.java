@@ -158,7 +158,7 @@ public class GetRoot extends Activity implements
                             e.printStackTrace();
                         }
 
-                        new SendWear().sendWear(context);
+                        new SendWear(context).sendWear();
                         //startReceiver();
 
 

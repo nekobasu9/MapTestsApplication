@@ -221,7 +221,7 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
                             //textView.setText(Integer.toString(count));
                             setUpView();
                             if (stepsFirstDistanceValue < 50){
-                                vibrator.vibrate(pattern, -1);
+                                //vibrator.vibrate(pattern, -1);
 
                             }
                         }

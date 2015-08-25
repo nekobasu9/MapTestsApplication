@@ -226,7 +226,7 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
             public void run() {
 //                fusedLocationProviderApi.requestLocationUpdates(
 //                        mGoogleApiClient, mLocationRequest, );
-                touroku();
+                getLocationUpdates();
             }
         }, requestTime);
 
@@ -240,9 +240,11 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
         //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, requestTime, Math.abs(requestTime-50), this);
     }
 
-    void touroku(){
-        LocationServices.FusedLocationApi.requestLocationUpdates(
-                mGoogleApiClient, mLocationRequest,this );
+    void getLocationUpdates(){
+        if(mGoogleApiClient.isConnected()) {
+            LocationServices.FusedLocationApi.requestLocationUpdates(
+                    mGoogleApiClient, mLocationRequest, this);
+        }
 
     }
 
