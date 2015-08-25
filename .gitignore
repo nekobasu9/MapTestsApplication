@@ -4,6 +4,7 @@
 /.idea/libraries
 .DS_Store
 /build
+/*/build/
 
 # Crashlytics configuations
 com_crashlytics_export_strings.xml
@@ -43,3 +44,5 @@ app/src/release/res/values/google_maps_api.xml
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+
