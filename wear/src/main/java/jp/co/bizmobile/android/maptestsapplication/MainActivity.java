@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -42,6 +43,10 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
     TextView Html_instructionsListText;
 
+    TextView countView;
+
+    ImageView imageView;
+
     //ListView Html_instructionsListView = null;
 
 
@@ -54,6 +59,7 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
     int stepsFirstDistanceValue = 0;
     String manuever;
 
+    int count = 0;
     private static final String TAG = "WearActivity";
 
     @Override
@@ -80,6 +86,12 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
         stepsFirstDurationTextView = (TextView)findViewById(R.id.textView4);
 
         Html_instructionsListText = (TextView)findViewById(R.id.textView5);
+
+        countView = (TextView)findViewById(R.id.textView6);
+
+        imageView = (ImageView)findViewById(R.id.imageView);
+
+        imageView.setImageResource(R.drawable.droid);
 
         //Html_instructionsListView = (ListView)findViewById(R.id.listView);
 
@@ -125,7 +137,7 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
             Html_instructionsListText.setTextColor(getResources().getColor(android.R.color.white));
 
-
+            countView.setTextColor(getResources().getColor(android.R.color.white));
 
 
 //            mTextView.setTextColor(getResources().getColor(android.R.color.white));
@@ -144,6 +156,7 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
             Html_instructionsListText.setTextColor(getResources().getColor(android.R.color.black));
 
 
+            countView.setTextColor(getResources().getColor(android.R.color.black));
 //            mTextView.setTextColor(getResources().getColor(android.R.color.black));
 //            mClockView.setVisibility(View.GONE);
         }
@@ -193,6 +206,9 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
             }
             Html_instructionsListText.setText(str);
+
+
+            countView.setText("count"+count);
         }
     }
 
@@ -216,6 +232,9 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
                     stepsFirstDistanceText = dataMap.getString("stepsFirstDistanceText");
                     stepsFirstDistanceValue = dataMap.getInt("stepsFirstDistanceValue");
                     manuever = dataMap.getString("manuever");
+
+                    count = dataMap.getInt("count");
+
                     Log.d("legsDistanceText",legsDistanceText);
                     runOnUiThread(new Runnable() {
                         @Override

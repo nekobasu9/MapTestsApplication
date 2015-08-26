@@ -41,6 +41,8 @@ public class SendWear implements GoogleApiClient.ConnectionCallbacks,
     String stepsFirstDurationText;
     String stepsFirstDistanceText;
 
+    int count = 0;
+
     private static final String TAG = "SendWear";
 
     Context context;
@@ -67,6 +69,8 @@ public class SendWear implements GoogleApiClient.ConnectionCallbacks,
     void startSendWear(){
 
 
+
+        count++;
 
         Log.d("startSendWear","startSendWear");
         gson = new Gson();
@@ -104,6 +108,7 @@ public class SendWear implements GoogleApiClient.ConnectionCallbacks,
                 mapReq.getDataMap().putString("stepsFirstDistanceText", stepsFirstDistanceText);
 
 
+                mapReq.getDataMap().putInt("count",count);
                 PutDataRequest request = mapReq.asPutDataRequest();
                 if (!mGoogleApiClient.isConnected()) {
                     Log.d("sendwear","noConnected");
@@ -134,6 +139,8 @@ public class SendWear implements GoogleApiClient.ConnectionCallbacks,
                 DataItem item = event.getDataItem();
                 if (item.getUri().getPath().equals("/path")) {
                     DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
+
+                    Log.d("Count",""+dataMap.getInt("count",0));
 
                     //Log.d("sendwear",dataMap.getString("legsDistanceText",null));
 
