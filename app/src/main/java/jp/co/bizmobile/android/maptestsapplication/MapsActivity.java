@@ -416,14 +416,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String language = Locale.getDefault().getLanguage();
         //String language = "en";
         Log.d("locale",language);
-        //パラメータ
-        String parameters = str_origin+"&"+str_dest+"&"+sensor + "&language="+language + "&mode=" + "driving";
 
+
+        //Waypoint test
+        //String waypoint = "&waypoints="+"35.681382,"+"139.766084";
+        //パラメータ
+        //String parameters = str_origin+"&"+str_dest+waypoint+"&"+sensor + "&language="+language + "&mode=" + "driving";
+
+        //test bicycling
+        String parameters = str_origin+"&"+str_dest+"&"+sensor + "&language="+language + "&mode=" + "bicycling";
+//        String parameters = str_origin+"&"+str_dest+"&"+sensor + "&language="+language + "&mode=" + "driving";
+//
         //JSON指定
         String output = "json";
 
 
         String url = "https://maps.googleapis.com/maps/api/directions/"+output+"?"+parameters;
+        Log.d("url",url);
 
         return url;
     }
