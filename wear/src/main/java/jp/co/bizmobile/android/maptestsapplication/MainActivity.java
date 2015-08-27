@@ -91,6 +91,10 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
         imageView = (ImageView)findViewById(R.id.imageView);
 
+
+        //String str = "R.drawable.droid";
+
+        Log.d("drawable",""+R.drawable.droid);
         imageView.setImageResource(R.drawable.droid);
 
         //Html_instructionsListView = (ListView)findViewById(R.id.listView);
@@ -138,6 +142,9 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
             Html_instructionsListText.setTextColor(getResources().getColor(android.R.color.white));
 
             countView.setTextColor(getResources().getColor(android.R.color.white));
+
+
+            //imageView.setColorFilter(android.R.color.white);
 
 
 //            mTextView.setTextColor(getResources().getColor(android.R.color.white));

@@ -29,73 +29,98 @@ public class DicideManeuver {
     final String KEEP_RIGHT = "keep-right";
 
 
-    void jadgeManeuver(String maneuver){
+
+
+    int  jadgeManeuver(String maneuver){
+        int returndrawble = 0 ;
         switch (maneuver){
             case TURN_SHARP_LEFT :
+                returndrawble = R.drawable.arrow012l;
                 break;
 
             case UTURN_RIGHT :
+                returndrawble = R.drawable.arrow012r;
                 break;
 
             case TURN_SLIGHT_RIGHT :
+                returndrawble = R.drawable.arrow012r;
                 break;
 
             case MERGE :
+                returndrawble = R.drawable.arrow012s;
                 break;
 
             case ROUNDABOUT_LEFT :
+                returndrawble = R.drawable.arrow012l;
                 break;
 
             case ROUNDABOUT_RIGHT :
+                returndrawble = R.drawable.arrow012r;
                 break;
 
             case UTURN_LEFT :
+                returndrawble = R.drawable.arrow012l;
                 break;
 
             case TURN_SLIGHT_LEFT :
+                returndrawble = R.drawable.arrow012l;
                 break;
 
             case TURN_LEFT :
+                returndrawble = R.drawable.arrow012l;
                 break;
 
             case RAMP_RIGHT :
+                returndrawble = R.drawable.arrow012r;
                 break;
 
             case TURN_RIGHT :
+                returndrawble = R.drawable.arrow012r;
                 break;
 
             case FORK_RIGHT :
+                returndrawble = R.drawable.arrow012r;
                 break;
 
             case STARIGHT :
+                returndrawble = R.drawable.arrow012s;
                 break;
 
             case FORK_LEFT :
+                returndrawble = R.drawable.arrow012l;
                 break;
 
             case FERRY_TRAIN :
+                returndrawble = R.drawable.arrow012s;
                 break;
 
             case TURN_SHARP_RIGHT :
+                returndrawble = R.drawable.arrow012r;
                 break;
 
             case RAMP_LEFT :
+                returndrawble = R.drawable.arrow012l;
                 break;
 
             case FERRY :
+                returndrawble = R.drawable.arrow012s;
                 break;
 
             case KEEP_LEFT :
+                returndrawble = R.drawable.arrow012s;
                 break;
 
             case KEEP_RIGHT :
+                returndrawble = R.drawable.arrow012s;
                 break;
 
             default:
+                returndrawble = R.drawable.arrow012s;
                 break;
 
         }
 
+        return returndrawble;
     }
 
 

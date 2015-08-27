@@ -65,7 +65,7 @@ public class ParceJson extends Activity{
             stepsFirstDistance = stepsFirst.getJSONObject("distance");
             stepsFirstDuration = stepsFirst.getJSONObject("duration");
             stepsFirstPolylinePoint = stepsFirst.getJSONObject("polyline").getString("points");
-            maneuver = stepsSecond.getString("maneuver");
+
 
 
             Log.d("polylinepoint", stepsFirstPolylinePoint);
@@ -85,13 +85,15 @@ public class ParceJson extends Activity{
             sharedPreferences.edit().putInt("legsDistanceValue", legsDistance.getInt("value")).apply();
             sharedPreferences.edit().putString("legsDistanceText", legsDistance.getString("text")).apply();
 
-            sharedPreferences.edit().putString("maneuver",maneuver).apply();
+
 
 
 
             Log.d("null", String.valueOf(steps.isNull(1)));
             if (!(steps.isNull(1))) {
                 stepsSecond = steps.getJSONObject(1);
+                maneuver = stepsSecond.getString("maneuver");
+                sharedPreferences.edit().putString("maneuver",maneuver).apply();
             }else {
                 stepsSecond = steps.getJSONObject(0);
             }
@@ -100,17 +102,10 @@ public class ParceJson extends Activity{
             stepsSecondHtml_instructions = stepsSecond.getString("html_instructions");
             Log.d("html_instructions", stepsSecond.get("html_instructions").toString());
 
+
+
             sharedPreferences.edit().putString("stepsSecondPolylinePoint", stepsSecondPolylinePoint).apply();
             sharedPreferences.edit().putString("stepsSecondHtml_instructions", stepsSecondHtml_instructions).apply();
-
-            /*
-            testmethod
-             */
-
-            //String str = stepsSecondHtml_instructions;
-            String strRight = "<b>right</b>";
-            String strLeft = "<b>left</b>";
-            String strExit = "exit";
 
 
 

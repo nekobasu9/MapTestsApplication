@@ -170,18 +170,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         test
          */
 
-        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-            @Override
-            public void onMapLongClick(LatLng latLng) {
-                sharedPreferences.edit().putString("origin_latitude_test", String.valueOf(latLng.latitude)).apply();
-                sharedPreferences.edit().putString("origin_longitude_test", String.valueOf(latLng.longitude)).apply();
-
-                markerPoints.add(latLng);
-                options = new MarkerOptions();
-                options.position(latLng);
-                mMap.addMarker(options);
-            }
-        });
+//        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+//            @Override
+//            public void onMapLongClick(LatLng latLng) {
+//                sharedPreferences.edit().putString("origin_latitude_test", String.valueOf(latLng.latitude)).apply();
+//                sharedPreferences.edit().putString("origin_longitude_test", String.valueOf(latLng.longitude)).apply();
+//
+//                markerPoints.add(latLng);
+//                options = new MarkerOptions();
+//                options.position(latLng);
+//                mMap.addMarker(options);
+//            }
+//        });
 
 
         // 停止ボタン
@@ -247,7 +247,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             /*
                             DEBUG
                              */
-                            Log.d("responsJson",response.toString(4));
+                            //Log.d("responsJson",response.toString(4));
 
 
                             //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -492,12 +492,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-//
-//        String str_origin_latitude = sharedPreferences.getString("origin_latitude", null);
-//        String str_oringi_longitude = sharedPreferences.getString("origin_longitude", null);
 
-        String str_origin_latitude = sharedPreferences.getString("origin_latitude_test", null);
-        String str_oringi_longitude = sharedPreferences.getString("origin_longitude_test", null);
+        String str_origin_latitude = sharedPreferences.getString("origin_latitude", null);
+        String str_oringi_longitude = sharedPreferences.getString("origin_longitude", null);
+
+//        String str_origin_latitude = sharedPreferences.getString("origin_latitude_test", null);
+//        String str_oringi_longitude = sharedPreferences.getString("origin_longitude_test", null);
 
 
 

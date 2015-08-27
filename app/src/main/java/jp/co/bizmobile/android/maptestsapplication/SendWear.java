@@ -71,6 +71,7 @@ public class SendWear implements GoogleApiClient.ConnectionCallbacks,
 
 
         count++;
+        Log.d("SendWearcount",""+count);
 
         Log.d("startSendWear","startSendWear");
         gson = new Gson();
@@ -121,6 +122,8 @@ public class SendWear implements GoogleApiClient.ConnectionCallbacks,
                                 if (!dataItemResult.getStatus().isSuccess()) {
                                     Log.e(TAG, "ERROR: failed to putDataItem, status code: "
                                             + dataItemResult.getStatus().getStatusCode());
+                                }else{
+                                    Log.d(TAG,"WearConnectSuccess");
                                 }
                             }
                         });
@@ -140,7 +143,8 @@ public class SendWear implements GoogleApiClient.ConnectionCallbacks,
                 if (item.getUri().getPath().equals("/path")) {
                     DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
 
-                    Log.d("Count",""+dataMap.getInt("count",0));
+
+                    //Log.d("Count",""+dataMap.getInt("count",0));
 
                     //Log.d("sendwear",dataMap.getString("legsDistanceText",null));
 

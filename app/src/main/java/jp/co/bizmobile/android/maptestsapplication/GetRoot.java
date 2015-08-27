@@ -76,6 +76,7 @@ public class GetRoot extends Activity implements
     private LocationManager locationManager;
 
     Context context;
+    SendWear sendWear;
 
 //
 //    @Override
@@ -85,6 +86,7 @@ public class GetRoot extends Activity implements
     GetRoot(Context appContext){
 
         context = appContext;
+        sendWear = new SendWear(context);
 
     }
 
@@ -161,7 +163,7 @@ public class GetRoot extends Activity implements
                             e.printStackTrace();
                         }
 
-                        new SendWear(context).sendWear();
+                        sendWear.sendWear();
                         //startReceiver();
 
 
