@@ -222,7 +222,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             /*
                             DEBUG
                              */
-                            //Log.d("responsJson",response.toString(4));
+                            Log.d("responsJson",response.toString(4));
+
 
 
                             sharedPreferences.edit().putString("directionData", jsonInstanceString).apply();
@@ -424,8 +425,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //String parameters = str_origin+"&"+str_dest+waypoint+"&"+sensor + "&language="+language + "&mode=" + "driving";
 
         //test bicycling
-        String parameters = str_origin+"&"+str_dest+"&"+sensor + "&language="+language + "&mode=" + "bicycling";
-//        String parameters = str_origin+"&"+str_dest+"&"+sensor + "&language="+language + "&mode=" + "driving";
+        //String parameters = str_origin+"&"+str_dest+"&"+sensor + "&language="+language + "&mode=" + "walking";
+        String parameters = str_origin+"&"+str_dest+"&"+sensor + "&language="+language + "&mode=" + "driving";
 //
         //JSON指定
         String output = "json";
