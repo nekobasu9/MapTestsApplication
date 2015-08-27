@@ -59,6 +59,8 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
     int stepsFirstDistanceValue = 0;
     String manuever;
 
+    DicideManeuver dicideManeuver;
+
     int count = 0;
     private static final String TAG = "WearActivity";
 
@@ -92,6 +94,7 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
         imageView = (ImageView)findViewById(R.id.imageView);
 
 
+        dicideManeuver = new DicideManeuver();
         //String str = "R.drawable.droid";
 
         Log.d("drawable",""+R.drawable.droid);
@@ -143,6 +146,8 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
             countView.setTextColor(getResources().getColor(android.R.color.white));
 
+            imageView.setColorFilter(android.R.color.white);
+
 
             //imageView.setColorFilter(android.R.color.white);
 
@@ -162,6 +167,7 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
             Html_instructionsListText.setTextColor(getResources().getColor(android.R.color.black));
 
+            imageView.setColorFilter(android.R.color.black);
 
             countView.setTextColor(getResources().getColor(android.R.color.black));
 //            mTextView.setTextColor(getResources().getColor(android.R.color.black));
@@ -200,11 +206,11 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
             //adapter.addAll(Html_instructionsList);
             //Html_instructionsListView.setAdapter(adapter);
 
-            legsDistanceTextView.setText("到着まで"+legsDistanceText);
-            legsDurationTextView.setText("到着まで"+legsDurationText);
+            legsDistanceTextView.setText("到着:"+legsDistanceText);
+            legsDurationTextView.setText(":"+legsDurationText);
 
-            stepsFirstDistanceTextView.setText("次"+stepsFirstDistanceText);
-            stepsFirstDurationTextView.setText("次"+stepsFirstDurationText);
+            stepsFirstDistanceTextView.setText("次:"+stepsFirstDistanceText);
+            stepsFirstDurationTextView.setText(":"+stepsFirstDurationText);
 
             String str ="";
 
@@ -214,6 +220,9 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
             }
             Html_instructionsListText.setText(str);
 
+            int drawa = dicideManeuver.jadgeManeuver(manuever);
+
+            imageView.setImageResource(drawa);
 
             countView.setText("count"+count);
         }
