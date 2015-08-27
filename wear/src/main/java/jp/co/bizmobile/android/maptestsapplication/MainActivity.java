@@ -1,5 +1,7 @@
 package jp.co.bizmobile.android.maptestsapplication;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.wearable.activity.WearableActivity;
@@ -146,7 +148,7 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
             countView.setTextColor(getResources().getColor(android.R.color.white));
 
-            imageView.setColorFilter(android.R.color.white);
+            imageView.setColorFilter(0xccffffff, PorterDuff.Mode.SRC_IN);
 
 
             //imageView.setColorFilter(android.R.color.white);
@@ -167,7 +169,7 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
             Html_instructionsListText.setTextColor(getResources().getColor(android.R.color.black));
 
-            imageView.setColorFilter(android.R.color.black);
+            imageView.setColorFilter(0xcc000000, PorterDuff.Mode.SRC_IN);
 
             countView.setTextColor(getResources().getColor(android.R.color.black));
 //            mTextView.setTextColor(getResources().getColor(android.R.color.black));
@@ -206,7 +208,7 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
             //adapter.addAll(Html_instructionsList);
             //Html_instructionsListView.setAdapter(adapter);
 
-            legsDistanceTextView.setText("到着:"+legsDistanceText);
+            legsDistanceTextView.setText("着:"+legsDistanceText);
             legsDurationTextView.setText(":"+legsDurationText);
 
             stepsFirstDistanceTextView.setText("次:"+stepsFirstDistanceText);
@@ -222,6 +224,7 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
             int drawa = dicideManeuver.jadgeManeuver(manuever);
 
+            Log.d("drawa",""+drawa);
             imageView.setImageResource(drawa);
 
             countView.setText("count"+count);
@@ -248,6 +251,7 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
                     stepsFirstDistanceText = dataMap.getString("stepsFirstDistanceText");
                     stepsFirstDistanceValue = dataMap.getInt("stepsFirstDistanceValue");
                     manuever = dataMap.getString("manuever");
+                    Log.d("MainActivity",manuever);
 
                     count = dataMap.getInt("count");
 

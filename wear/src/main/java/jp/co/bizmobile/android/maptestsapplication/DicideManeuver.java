@@ -1,5 +1,7 @@
 package jp.co.bizmobile.android.maptestsapplication;
 
+import android.util.Log;
+
 /**
  * Created by shotaroyoshida on 2015/08/25.
  */
@@ -33,6 +35,7 @@ public class DicideManeuver {
 
     int  jadgeManeuver(String maneuver){
         int returndrawble = 0 ;
+        Log.d("jadgeManeuver",maneuver);
         switch (maneuver){
             case TURN_SHARP_LEFT :
                 returndrawble = R.drawable.arrow012l;

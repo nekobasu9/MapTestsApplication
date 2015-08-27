@@ -40,7 +40,7 @@ public class SendWear implements GoogleApiClient.ConnectionCallbacks,
     String legsDurationText;
     String stepsFirstDurationText;
     String stepsFirstDistanceText;
-
+    String manuever;
     int count = 0;
 
     private static final String TAG = "SendWear";
@@ -86,10 +86,10 @@ public class SendWear implements GoogleApiClient.ConnectionCallbacks,
         legsDistanceText = sharedPreferences.getString("legsDistanceText", null);
         legsDurationText = sharedPreferences.getString("legsDurationText", null);
 
-        stepsFirstDurationText = sharedPreferences.getString("stepsFirstDistanceText",null);
+        stepsFirstDurationText = sharedPreferences.getString("stepsFirstDurationText",null);
         stepsFirstDistanceText = sharedPreferences.getString("stepsFirstDistanceText",null);
 
-
+        manuever = sharedPreferences.getString("maneuver", null);
 
         for(int i= 0 ; i<Html_instructionsList.length - 1; i++) {
             Log.d("Html_instructionsList", Html_instructionsList[i]);
@@ -107,7 +107,7 @@ public class SendWear implements GoogleApiClient.ConnectionCallbacks,
                 mapReq.getDataMap().putString("legsDurationText", legsDurationText);
                 mapReq.getDataMap().putString("stepsFirstDurationText", stepsFirstDurationText);
                 mapReq.getDataMap().putString("stepsFirstDistanceText", stepsFirstDistanceText);
-
+                mapReq.getDataMap().putString("manuever",manuever);
 
                 mapReq.getDataMap().putInt("count",count);
                 PutDataRequest request = mapReq.asPutDataRequest();
@@ -122,7 +122,7 @@ public class SendWear implements GoogleApiClient.ConnectionCallbacks,
                                 if (!dataItemResult.getStatus().isSuccess()) {
                                     Log.e(TAG, "ERROR: failed to putDataItem, status code: "
                                             + dataItemResult.getStatus().getStatusCode());
-                                }else{
+                                } else {
                                     Log.d(TAG,"WearConnectSuccess");
                                 }
                             }

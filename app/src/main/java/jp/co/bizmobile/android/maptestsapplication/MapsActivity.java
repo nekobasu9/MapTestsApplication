@@ -372,7 +372,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         legsDistanceText = sharedPreferences.getString("legsDistanceText", null);
         legsDurationText = sharedPreferences.getString("legsDurationText", null);
 
-        stepsFirstDurationText = sharedPreferences.getString("stepsFirstDistanceText",null);
+        stepsFirstDurationText = sharedPreferences.getString("stepsFirstDurationText",null);
         stepsFirstDistanceText = sharedPreferences.getString("stepsFirstDistanceText", null);
         stepsFirstDistanceValue = sharedPreferences.getInt("stepsFirstDistanceValue", 0);
 
