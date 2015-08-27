@@ -49,8 +49,6 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
     ImageView imageView;
 
-    //ListView Html_instructionsListView = null;
-
 
     GoogleApiClient mGoogleApiClient;
     String[] Html_instructionsList = null;
@@ -81,7 +79,6 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
                 .addOnConnectionFailedListener(this)
                 .addApi(Wearable.API)
                 .build();
-        //setUpView();
 
         legsDistanceTextView = (TextView)findViewById(R.id.textView1);
         legsDurationTextView = (TextView)findViewById(R.id.textView2);
@@ -97,15 +94,9 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
 
         dicideManeuver = new DicideManeuver();
-        //String str = "R.drawable.droid";
 
         Log.d("drawable",""+R.drawable.droid);
         imageView.setImageResource(R.drawable.droid);
-
-        //Html_instructionsListView = (ListView)findViewById(R.id.listView);
-
-//        mTextView = (TextView) findViewById(R.id.text);
-//        mClockView = (TextView) findViewById(R.id.clock);
     }
 
     @Override
@@ -136,7 +127,6 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
     private void updateDisplay() {
         if (isAmbient()) {
             mContainerView.setBackgroundColor(getResources().getColor(android.R.color.black));
-            //////////////////////////////////////////////////////
 
             legsDistanceTextView.setTextColor(getResources().getColor(android.R.color.white));
             legsDurationTextView.setTextColor(getResources().getColor(android.R.color.white));
@@ -151,13 +141,7 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
             imageView.setColorFilter(0xccffffff, PorterDuff.Mode.SRC_IN);
 
 
-            //imageView.setColorFilter(android.R.color.white);
 
-
-//            mTextView.setTextColor(getResources().getColor(android.R.color.white));
-//            mClockView.setVisibility(View.VISIBLE);
-
-//            mClockView.setText(AMBIENT_DATE_FORMAT.format(new Date()));
         } else {
             mContainerView.setBackground(null);
 
@@ -172,41 +156,18 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
             imageView.setColorFilter(0xcc000000, PorterDuff.Mode.SRC_IN);
 
             countView.setTextColor(getResources().getColor(android.R.color.black));
-//            mTextView.setTextColor(getResources().getColor(android.R.color.black));
-//            mClockView.setVisibility(View.GONE);
         }
     }
 
     void setUpView(){
 
 
-//        legsDistanceTextView = (TextView)findViewById(R.id.textView1);
-//        legsDurationTextView = (TextView)findViewById(R.id.textView2);
-//
-//        stepsFirstDistanceTextView = (TextView)findViewById(R.id.textView3);
-//        stepsFirstDurationTextView = (TextView)findViewById(R.id.textView4);
-//
-//        Html_instructionsListView = (ListView)findViewById(R.id.listView);
         for(int i= 0 ; i<Html_instructionsList.length - 1; i++) {
             Log.d("Html_instructionsList", Html_instructionsList[i]);
 
         }
 
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-//                android.R.layout.simple_expandable_list_item_1){
-//            @Override
-//            public View getView(int position, View convertView, ViewGroup parent) {
-//                TextView view = (TextView) super.getView(position, convertView, parent);
-//                view.setTextSize( 14 );
-//                view.setHeight( 14 ) ;
-//                view.setMinimumHeight( 14 ) ;
-//                return view;
-//            }
-//        };
         if(Html_instructionsList.length > 0){
-            //adapter.clear();
-            //adapter.addAll(Html_instructionsList);
-            //Html_instructionsListView.setAdapter(adapter);
 
             legsDistanceTextView.setText("着:"+legsDistanceText);
             legsDurationTextView.setText(":"+legsDurationText);
@@ -259,7 +220,6 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            //textView.setText(Integer.toString(count));
                             setUpView();
                             if (stepsFirstDistanceValue < 50){
                                 //vibrator.vibrate(pattern, -1);
@@ -268,30 +228,15 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
                         }
                     });
 
-                    //setUpView();
                 }
             }
         }
     }
-    // Activity stopで接続解除
-//    @Override
-//    protected void onStop() {
-//        if (null != mGoogleApiClient && mGoogleApiClient.isConnected()) {
-//            Wearable.DataApi.removeListener(mGoogleApiClient, this);
-//            mGoogleApiClient.disconnect();
-//        }
-//        super.onStop();
-//
-//        Log.d(TAG, "onStop()");
-//
-//    }
 
     // Activity stopで接続解除
     @Override
     protected void onDestroy() {
-//        if (null != mGoogleApiClient && mGoogleApiClient.isConnected()) {
-//            mGoogleApiClient.disconnect();
-//        }
+
         super.onDestroy();
         Wearable.DataApi.removeListener(mGoogleApiClient, this);
         mGoogleApiClient.disconnect();

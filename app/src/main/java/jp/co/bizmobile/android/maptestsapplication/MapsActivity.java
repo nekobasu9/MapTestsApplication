@@ -90,7 +90,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setUpMapIfNeeded();
 
 
-        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPreferences = getSharedPreferences("maps",Context.MODE_MULTI_PROCESS);
 
 
@@ -124,7 +123,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     mMap.animateCamera(cameraUpdate);
 
 // 逆ジオコーディングで現在地の住所を取得する
-                    //requestReverseGeocode(location.getLatitude(), location.getLongitude());
                 }
             }
         });
@@ -141,7 +139,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 sharedPreferences.edit().putString("dest_longitude", String.valueOf(dest.longitude)).apply();
 
 
-                //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences();
 
 
                 Log.d("LatLng", "" + latLng);
@@ -154,13 +151,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.d("origin", "" + latLng.latitude);
                 Log.d("dest", "" + latLng.longitude);
 
-//                Handler handler = new Handler();
-//                handler.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        root();
-//                    }
-//                });
+
                 root();
             }
         });
@@ -191,15 +182,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
 
-                // Pending Intent使ってレシーバーをセットする
-//                PendingIntent sender = MapsActivity.this.getPending(MainActivity.this, 0);
-//                Intent intent = new Intent(MapsActivity.this, ReceiverAlert.class);
-//                PendingIntent sender = PendingIntent.getBroadcast(MapsActivity.this, 0, intent, 0);
-//
-//
-//                // アラームを解除する
-//                AlarmManager am = (AlarmManager) MapsActivity.this.getSystemService(ALARM_SERVICE);
-//                am.cancel(sender);
 
                 stopService(new Intent(MapsActivity.this,MyService.class));
 
@@ -215,7 +197,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onStart() {
         super.onStart();
         Log.d(TAG, "onStart()");
-        //mGoogleApiClient.connect();
     }
 
 
@@ -228,18 +209,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        //JSONObject json = new JSONObject(response);
 
 
                         Polyline line = null;
 
 
                         try {
-                            //String status = response.getString("status");
-                            //if(response.getString("status") == "OK") {
-                            //    Log.d("status",response.getString("status"));
-
-
                             gson = new Gson();
                             String jsonInstanceString = gson.toJson(response);
 
@@ -250,26 +225,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             //Log.d("responsJson",response.toString(4));
 
 
-                            //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-                            //SharedPreferences data = getSharedPreferences("directionDataSave", Context.MODE_PRIVATE);
                             sharedPreferences.edit().putString("directionData", jsonInstanceString).apply();
 
-                            // Tranform the string into a json object
-                            //final JSONObject json = new JSONObject(result);
-                            //Log.d("response",response.toString(4));
                             ParceJson parceJson = new ParceJson();
                             parceJson.parce(getApplicationContext(), response);
 
-                            //String stepsFirstDistance = parceJson.stepsFirstDistance.getString("test");
-
-//                            JSONArray routeArray = response.getJSONArray("routes");
-//                            JSONObject routes = routeArray.getJSONObject(0);
-//                            JSONObject overviewPolylines = routes
-//                                    .getJSONObject("overview_polyline");
 //
                             String overviewPolylines = sharedPreferences.getString("overviewPolylines", null);
-                            //String encodedString = overviewPolylines.getString("points");
                             List<LatLng> list = decodePoly(overviewPolylines);
 
                             for (int z = 0; z < list.size() - 1; z++) {
@@ -280,23 +242,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                                 new LatLng(dest.latitude, dest.longitude))
                                         .width(5).color(Color.BLUE).geodesic(true));
                             }
-//                            }else{
-//                                Log.d("status",response.getString("status"));
-//                            }
+//
 
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
 
                         sendWear();
-                        startTimer();
+                        startServiceMethod();
 
-
-//                        try {
-//                            Log.d("response", response.toString(4));
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -311,49 +265,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    void startTimer(){
+    void startServiceMethod(){
 
-        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-
-        int stepsFirstDrationValue = sharedPreferences.getInt("stepsFirstDrationValue", 0);
-
-        if (stepsFirstDrationValue <= 120){
-
-            requestTime = stepsFirstDrationValue;
-            Log.d("stepsFirstDrationValue","MAPSsonomama"+stepsFirstDrationValue);
-
-        }else{
-
-            requestTime = stepsFirstDrationValue / 2;
-            Log.d("stepsFirstDrationValue","hanbun"+stepsFirstDrationValue);
-        }
-        requestTime *= 1000;
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                root();
-//                Log.d("handler", "startroot");
-//                //Toast.makeText(context, String.valueOf(++count), Toast.LENGTH_SHORT).show();
-//            }
-//        }, requestTime);
 
 
         startService(new Intent(MapsActivity.this,MyService.class));
 
-//        Intent intent = new Intent(MapsActivity.this,ReceiverAlert.class);
-//        PendingIntent sender = PendingIntent.getBroadcast(MapsActivity.this,0,intent,0);
-//
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTimeInMillis(System.currentTimeMillis());
-//        calendar.add(Calendar.SECOND, 10);
-//        //calendar.add(Calendar.SECOND, requestTime);
-//
-//        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-//        alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),sender);
-
-        Toast.makeText(MapsActivity.this, "Start Alarm!", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MapsActivity.this, "Start Alarm!", Toast.LENGTH_SHORT).show();
         Log.d(TAG,"alarmStart");
 
 
@@ -363,8 +281,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     void sendWear(){
         Log.d("startSendWear","startSendWear");
         gson = new Gson();
-        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        //sharedPreferences = getSharedPreferences("maps",Context.MODE_MULTI_PROCESS);
         String str = sharedPreferences.getString("Html_instructionsList", null);
 
         Html_instructionsList = gson.fromJson(str, String[].class);
@@ -377,9 +293,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         stepsFirstDistanceValue = sharedPreferences.getInt("stepsFirstDistanceValue", 0);
 
         manuever = sharedPreferences.getString("maneuver", null);
-
-
-        //new DicideManeuver().jadgeManeuver(manuever);
 
         for(int i= 0 ; i<Html_instructionsList.length - 1; i++) {
             Log.d("Html_instructionsList", Html_instructionsList[i]);
@@ -476,13 +389,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             poly.add(p);
         }
 
-//        for (int i = 0; i<poly.size(); i++){
-//            String str1 = String.valueOf(poly.get(i).latitude);
-//            String str2 = String.valueOf(poly.get(i).longitude);
-//            Log.d("latitude",str1);
-//            Log.d("longitude",str2);
-//        }
-
         return poly;
     }
 
@@ -490,23 +396,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String getDirectionsUrl(){
 
 
-        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 
         String str_origin_latitude = sharedPreferences.getString("origin_latitude", null);
         String str_oringi_longitude = sharedPreferences.getString("origin_longitude", null);
 
-//        String str_origin_latitude = sharedPreferences.getString("origin_latitude_test", null);
-//        String str_oringi_longitude = sharedPreferences.getString("origin_longitude_test", null);
-
-
-
-
-
         String str_origin = "origin="+str_origin_latitude+","+str_oringi_longitude;
-
-//        String str_origin = "origin="+origin.latitude+","+origin.longitude;
-        //sharedPreferences.edit().putString("str_origin",str_origin).apply();
 
 
         String str_dest_latitude = sharedPreferences.getString("dest_latitude",null);
@@ -514,8 +409,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         String str_dest = "destination="+str_dest_latitude+","+str_dest_longitude;
-        //String str_dest = "destination="+dest.latitude+","+dest.longitude;
-        //sharedPreferences.edit().putString("str_dest",str_dest).apply();
 
 
         String sensor = "sensor=false";
@@ -568,19 +461,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
     }
-
-
-    // Activity stopで接続解除
-//    @Override
-//    protected void onDestroy() {
-//        if (null != mGoogleApiClient && mGoogleApiClient.isConnected()) {
-//            mGoogleApiClient.disconnect();
-//        }
-//        super.onDestroy();
-//
-//        Log.d(TAG, "onStop()");
-//
-//    }
 
     /**
      * This is where we can add markers or lines, add listeners or move the camera. In this case, we
@@ -648,19 +528,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-
-    // Activity stopで接続解除
-//    @Override
-//    protected void onStop() {
-//        if (null != mGoogleApiClient && mGoogleApiClient.isConnected()) {
-//            Wearable.DataApi.removeListener(mGoogleApiClient, this);
-//            mGoogleApiClient.disconnect();
-//        }
-//        super.onStop();
-//
-//        Log.d(TAG, "onStop()");
-//
-//    }
 
     // Activity stopで接続解除
     @Override

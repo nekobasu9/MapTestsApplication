@@ -78,11 +78,6 @@ public class GetRoot extends Activity implements
     Context context;
     SendWear sendWear;
 
-//
-//    @Override
-//    protected void onCreate(final Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-
     GetRoot(Context appContext){
 
         context = appContext;
@@ -91,36 +86,6 @@ public class GetRoot extends Activity implements
     }
 
 
-    void getLocation(){
-//        locationRequest = LocationRequest.create();
-//        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
-
-//        locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
-//
-//        final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-//        if (!gpsEnabled) {
-//            // GPSを設定するように促す
-//            enableLocationSettings();
-//        }
-
-
-        //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000,50,this);
-
-
-
-//        mGoogleApiClient = new GoogleApiClient.Builder(this)
-//                .addApi(LocationServices.API)
-//                .addConnectionCallbacks(this)
-//                .addOnConnectionFailedListener(this)
-//                .build();
-//
-//
-//
-//        mGoogleApiClient.connect();
-
-    }
-
 
 
 
@@ -128,9 +93,7 @@ public class GetRoot extends Activity implements
 
 
 
-//        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         sharedPreferences = context.getSharedPreferences("maps", Context.MODE_MULTI_PROCESS);
-        //Toast.makeText(this, "sharedPreferences", Toast.LENGTH_SHORT).show();
         Log.d("GetRoot","sharedPreferences");
 
         String url = getDirectionsUrl();
@@ -140,19 +103,13 @@ public class GetRoot extends Activity implements
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        //JSONObject json = new JSONObject(response);
 
                         try {
-                            //String status = response.getString("status");
-                            //if(response.getString("status") == "OK") {
-                            //    Log.d("status",response.getString("status"));
 
 
                             gson = new Gson();
                             String jsonInstanceString = gson.toJson(response);
-                            //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-                            //SharedPreferences data = getSharedPreferences("directionDataSave", Context.MODE_PRIVATE);
                             sharedPreferences.edit().putString("directionData", jsonInstanceString).apply();
 
                             ParceJson parceJson = new ParceJson();
@@ -164,14 +121,7 @@ public class GetRoot extends Activity implements
                         }
 
                         sendWear.sendWear();
-                        //startReceiver();
 
-
-//                        try {
-//                            Log.d("response", response.toString(4));
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -189,7 +139,6 @@ public class GetRoot extends Activity implements
     private String getDirectionsUrl(){
 
 
-        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
 
         String str_origin_latitude = sharedPreferences.getString("origin_latitude", null);
@@ -198,17 +147,12 @@ public class GetRoot extends Activity implements
 
         String str_origin = "origin="+str_origin_latitude+","+str_oringi_longitude;
 
-//        String str_origin = "origin="+origin.latitude+","+origin.longitude;
-        //sharedPreferences.edit().putString("str_origin",str_origin).apply();
-
 
         String str_dest_latitude = sharedPreferences.getString("dest_latitude",null);
         String str_dest_longitude = sharedPreferences.getString("dest_longitude",null);
 
 
         String str_dest = "destination="+str_dest_latitude+","+str_dest_longitude;
-        //String str_dest = "destination="+dest.latitude+","+dest.longitude;
-        //sharedPreferences.edit().putString("str_dest",str_dest).apply();
 
 
         String sensor = "sensor=false";
@@ -226,57 +170,6 @@ public class GetRoot extends Activity implements
     }
 
 
-//    @Override
-//    public void onDataChanged(DataEventBuffer dataEvents) {
-//        for (DataEvent event : dataEvents) {
-//            if (event.getType() == DataEvent.TYPE_CHANGED) {
-//                DataItem item = event.getDataItem();
-//                if (item.getUri().getPath().equals("/testapp")) {
-//                    DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
-//                    String name = dataMap.getString("name"); // "shokai"
-//                    String url  = dataMap.getString("url");  // "http://shokai.org"
-//                }
-//            } else if (event.getType() == DataEvent.TYPE_DELETED) {
-//                // 削除イベント
-//            }
-//        }
-//    }
-
-
-//    @Override
-//    public void onLocationChanged(Location location){
-//        Log.d("GetRoot","onLocationChanged");
-//
-//    }
-//    @Override
-//    public void onConnected(Bundle bundle) {
-//        //Wearable.DataApi.addListener(mGoogleApiClient, this);
-//        //Wearable.DataApi.addListener(mGoogleApiClient, this);
-//        Log.d("TAG", "onConnected");
-//        Location currentLocation = fusedLocationProviderApi.getLastLocation(mGoogleApiClient);
-//        if(currentLocation != null) {
-//            origin = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-//            //String str = String.valueOf(origin.latitude);
-//            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//
-//            sharedPreferences.edit().putString("origin_latitude",String.valueOf(origin.latitude)).apply();
-//            sharedPreferences.edit().putString("origin_longitude",String.valueOf(origin.longitude)).apply();
-//
-//            root();
-//        }
-//        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//
-//
-//    }
-//    @Override
-//    public void onConnectionSuspended(int i) {
-//        Log.d("TAG", "onConnectionSuspended");
-//    }
-//
-//    @Override
-//    public void onConnectionFailed(ConnectionResult connectionResult) {
-//        Log.e("TAG", "onConnectionFailed: " + connectionResult);
-//    }
 
 
     private List<LatLng> decodePoly(String encoded) {
@@ -314,66 +207,6 @@ public class GetRoot extends Activity implements
     }
 
 
-    void startReceiver(){
-
-        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-
-        int stepsFirstDrationValue = sharedPreferences.getInt("stepsFirstDrationValue", 0);
-
-        if (stepsFirstDrationValue <= 120){
-
-            requestTime = stepsFirstDrationValue;
-            Log.d("stepsFirstDrationValue","sonomama"+stepsFirstDrationValue);
-
-        }else{
-
-            requestTime = stepsFirstDrationValue / 2;
-            Log.d("stepsFirstDrationValue","hanbun"+stepsFirstDrationValue);
-        }
-        //requestTime *= 1000;
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                root();
-//                Log.d("handler", "startroot");
-//                //Toast.makeText(context, String.valueOf(++count), Toast.LENGTH_SHORT).show();
-//            }
-//        }, requestTime);
-
-
-//
-//        Intent intent = new Intent(GetRoot.this,ReceiverAlert.class);
-//        PendingIntent sender = PendingIntent.getBroadcast(GetRoot.this,0,intent,0);
-//
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTimeInMillis(System.currentTimeMillis());
-//        calendar.add(Calendar.SECOND, requestTime);
-//
-//        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-//        alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),sender);
-
-        //Toast.makeText(MapsActivity.this, "Start Alarm!", Toast.LENGTH_SHORT).show();
-        Log.d("alarm","alarmStart");
-
-//        Intent intent = new Intent(MapsActivity.this,ReceiverAlert.class);
-//        PendingIntent sender = PendingIntent.getBroadcast(MapsActivity.this,0,intent,0);
-//
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTimeInMillis(System.currentTimeMillis());
-//        calendar.add(Calendar.SECOND, requestTime);
-//
-//        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-//        alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),sender);
-//
-//        Toast.makeText(MapsActivity.this, "Start Alarm!", Toast.LENGTH_SHORT).show();
-//        Log.d(TAG,"alarmStart");
-
-
-    }
-
-
 
     @Override
     public void onLocationChanged(Location location){
@@ -389,13 +222,6 @@ public class GetRoot extends Activity implements
 
             root();
         }
-
-
-
-//        text += "----------\n";
-//        text += "Latitude="+ String.valueOf(location.getLatitude())+"\n";
-//        text += "Longitude="+ String.valueOf(location.getLongitude())+"\n";
-//        textView.setText(text);
 
     }
 
@@ -429,9 +255,5 @@ public class GetRoot extends Activity implements
                 break;
         }
 
-    }
-    private void enableLocationSettings() {
-        Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        startActivity(settingsIntent);
     }
 }

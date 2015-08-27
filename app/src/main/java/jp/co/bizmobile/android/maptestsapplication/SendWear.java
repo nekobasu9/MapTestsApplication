@@ -76,8 +76,6 @@ public class SendWear implements GoogleApiClient.ConnectionCallbacks,
         Log.d("startSendWear","startSendWear");
         gson = new Gson();
 
-        // sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
         sharedPreferences = context.getSharedPreferences("maps", Context.MODE_MULTI_PROCESS);
 
         String str = sharedPreferences.getString("Html_instructionsList",null);

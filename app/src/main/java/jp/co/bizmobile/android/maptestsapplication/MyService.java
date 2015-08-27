@@ -258,6 +258,7 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
         Log.d("onConnected", "onConnected");
 
         setLocationTime();
+        setLocationTime();
     }
 
 
