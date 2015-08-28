@@ -2,12 +2,15 @@ package jp.co.bizmobile.android.maptestsapplication;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
@@ -82,6 +85,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String stepsFirstDistanceText;
     int stepsFirstDistanceValue = 0;
     String manuever;
+
+    LocationManager locationManager;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -191,6 +196,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
 
+        locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
+
 
     }
     @Override
@@ -222,8 +229,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             /*
                             DEBUG
                              */
-                            Log.d("responsJson",response.toString(4));
-
+                            Log.d("responsJson", response.toString(4));
 
 
                             sharedPreferences.edit().putString("directionData", jsonInstanceString).apply();
@@ -270,7 +276,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-        startService(new Intent(MapsActivity.this,MyService.class));
+        startService(new Intent(MapsActivity.this, MyService.class));
 
         //Toast.makeText(MapsActivity.this, "Start Alarm!", Toast.LENGTH_SHORT).show();
         Log.d(TAG,"alarmStart");
@@ -280,7 +286,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     void sendWear(){
-        Log.d("startSendWear","startSendWear");
+        Log.d("startSendWear", "startSendWear");
         gson = new Gson();
         String str = sharedPreferences.getString("Html_instructionsList", null);
 
@@ -311,13 +317,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mapReq.getDataMap().putString("legsDurationText", legsDurationText);
                 mapReq.getDataMap().putString("stepsFirstDurationText", stepsFirstDurationText);
                 mapReq.getDataMap().putString("stepsFirstDistanceText", stepsFirstDistanceText);
-                mapReq.getDataMap().putInt("stepsFirstDistanceValue",stepsFirstDistanceValue);
-                mapReq.getDataMap().putString("manuever",manuever);
+                mapReq.getDataMap().putInt("stepsFirstDistanceValue", stepsFirstDistanceValue);
+                mapReq.getDataMap().putString("manuever", manuever);
 
 
                 PutDataRequest request = mapReq.asPutDataRequest();
                 if (!mGoogleApiClient.isConnected()) {
-                    Log.d("Failed","Failed");
+                    Log.d("Failed", "Failed");
                     return;
                 }
                 Wearable.DataApi.putDataItem(mGoogleApiClient, request)
@@ -327,7 +333,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 if (!dataItemResult.getStatus().isSuccess()) {
                                     Log.e(TAG, "ERROR: failed to putDataItem, status code: "
                                             + dataItemResult.getStatus().getStatusCode());
-                                }else{
+                                } else {
                                     Log.d(TAG, "status code: "
                                             + dataItemResult.getStatus().getStatusCode());
                                 }
@@ -443,6 +449,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onResume();
         setUpMapIfNeeded();
         mGoogleApiClient.connect();
+
+        checkGps();
     }
 
     /**
@@ -551,5 +559,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.d(TAG, "onStop()");
 
     }
+
+
+    private void checkGps() {
+
+        //GPSセンサーが利用可能か？
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setMessage("GPSが有効になっていません。\n有効化しますか？")
+                    .setCancelable(false)
+
+                            //GPS設定画面起動用ボタンとイベントの定義
+                    .setPositiveButton("GPS設定起動",
+                            new DialogInterface.OnClickListener(){
+                                public void onClick(DialogInterface dialog, int id){
+                                    Intent callGPSSettingIntent = new Intent(
+                                            android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                    startActivity(callGPSSettingIntent);
+                                }
+                            });
+            //キャンセルボタン処理
+            alertDialogBuilder.setNegativeButton("キャンセル",
+                    new DialogInterface.OnClickListener(){
+                        public void onClick(DialogInterface dialog, int id){
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert = alertDialogBuilder.create();
+            // 設定画面へ移動するかの問い合わせダイアログを表示
+            alert.show();
+        }
+    }
+
 
 }
