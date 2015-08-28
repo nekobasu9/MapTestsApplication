@@ -57,15 +57,10 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
     @Override
     public void onCreate() {
         Log.i(TAG, "onCreate");
-        //Toast.makeText(this, "MyService#onCreate", Toast.LENGTH_SHORT).show();
         sharedPreferences = getSharedPreferences("maps", Context.MODE_MULTI_PROCESS);
-        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         getRoot = new GetRoot(getApplicationContext());
 
-        //textView = (TextView)findViewById(R.id.textView);
-
-        //locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
 
 
         handler = new Handler();
@@ -76,17 +71,9 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
                 .build();
         mLocationRequest = new LocationRequest();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        //mLocationRequest.setInterval(10000);
 
 
         mGoogleApiClient.connect();
-
-//        final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-//        if (!gpsEnabled) {
-//            // GPSを設定するように促す
-//            enableLocationSettings();
-//        }
-
 
     }
 
@@ -108,9 +95,6 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG, "onStartCommand Received start id " + startId + ": " + intent);
         //Toast.makeText(this, "MyService#onStartCommand", Toast.LENGTH_SHORT).show();
-
-
-        //setLocationTime();
 
         return START_STICKY;
     }
@@ -138,26 +122,18 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
     public void onLocationChanged(Location location){
 
         Log.d("change", "change");
-//        text += "----------\n";
-//        text += "Latitude="+ String.valueOf(location.getLatitude())+"\n";
-//        text += "Longitude="+ String.valueOf(location.getLongitude())+"\n";
-        //textView.setText(text);
 
         if(location != null) {
             origin = new LatLng(location.getLatitude(), location.getLongitude());
-            //String str = String.valueOf(origin.latitude);
-            //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
             sharedPreferences = getSharedPreferences("maps",Context.MODE_MULTI_PROCESS);
 
             sharedPreferences.edit().putString("origin_latitude", String.valueOf(origin.latitude)).apply();
             sharedPreferences.edit().putString("origin_longitude", String.valueOf(origin.longitude)).apply();
-            //.makeText(this, String.valueOf(origin.latitude)+"++++++++"+String.valueOf(origin.longitude), Toast.LENGTH_SHORT).show();
 
 
             getRoot.root();
             setLocationTime();
-            //Log.d("service", text);
         }
 
     }
@@ -206,19 +182,26 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
     }
 
     void setLocationTime(){
-        int stepsFirstDrationValue = sharedPreferences.getInt("stepsFirstDrationValue", 0);
+        int stepsFirstDurationValue = sharedPreferences.getInt("stepsFirstDurationValue", 0);
 
         Log.d("setlocation", "ServicesetLocationTime");
-        if (stepsFirstDrationValue <= 120){
 
-            requestTime = stepsFirstDrationValue;
-            Log.d("stepsFirstDrationValue","SERVICEsonomama"+stepsFirstDrationValue);
+        requestTime = stepsFirstDurationValue / 3;
 
-        }else{
-
-            requestTime = stepsFirstDrationValue / 2;
-            Log.d("stepsFirstDrationValue","hanbun"+stepsFirstDrationValue);
+        if(requestTime<30){
+            requestTime = 10;
         }
+
+//        if (stepsFirstDurationValue <= 120){
+//
+//            requestTime = stepsFirstDurationValue;
+//            Log.d("stepsFirstDurationValue","SERVICEsonomama"+stepsFirstDurationValue);
+//
+//        }else{
+//
+//            requestTime = stepsFirstDurationValue / 3;
+//            Log.d("stepsFirstDrationValue","SERVICEhanbun"+stepsFirstDurationValue);
+//        }
 
         Log.d("requestTime",String.valueOf(requestTime));
         requestTime *=1000;
@@ -257,7 +240,6 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
     public void onConnected(Bundle bundle) {
         Log.d("onConnected", "onConnected");
 
-        setLocationTime();
         setLocationTime();
     }
 

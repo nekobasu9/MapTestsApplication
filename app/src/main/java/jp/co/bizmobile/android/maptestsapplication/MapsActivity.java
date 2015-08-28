@@ -426,6 +426,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //test bicycling
         //String parameters = str_origin+"&"+str_dest+"&"+sensor + "&language="+language + "&mode=" + "walking";
+        //String parameters = str_origin+"&"+str_dest+"&"+"avoid=highways&"+sensor + "&language="+language + "&mode=" + "driving";
         String parameters = str_origin+"&"+str_dest+"&"+sensor + "&language="+language + "&mode=" + "driving";
 //
         //JSON指定

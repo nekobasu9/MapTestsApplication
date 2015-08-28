@@ -67,7 +67,7 @@ public class ParceJson extends Activity{
 
             Log.d("polylinepoint", stepsFirstPolylinePoint);
 
-            sharedPreferences.edit().putInt("stepsFirstDrationValue", stepsFirstDuration.getInt("value")).apply();
+            sharedPreferences.edit().putInt("stepsFirstDurationValue", stepsFirstDuration.getInt("value")).apply();
             sharedPreferences.edit().putString("stepsFirstDurationText", stepsFirstDuration.getString("text")).apply();
 
             sharedPreferences.edit().putInt("stepsFirstDistanceValue", stepsFirstDistance.getInt("value")).apply();
