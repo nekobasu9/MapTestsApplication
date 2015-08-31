@@ -35,6 +35,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -613,8 +614,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             LatLng center = new LatLng(center_latitude,center_longitude);
 
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(center, 14.0f);
+            LatLng posOrigin = new LatLng(origin_latitude,origin_longitude);
+            LatLng posdest = new LatLng(dest_latitude,dest_longitude);
+
+            builder.include(posOrigin);
+            builder.include(posdest);
+
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(builder.build(),70);
+
+            //CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(center, 14.0f);
             mMap.animateCamera(cameraUpdate);
         }
 
