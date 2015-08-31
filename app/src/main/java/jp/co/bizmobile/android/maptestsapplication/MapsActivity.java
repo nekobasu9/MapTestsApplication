@@ -247,7 +247,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 line = mMap.addPolyline(new PolylineOptions()
                                         .add(new LatLng(src.latitude, src.longitude),
                                                 new LatLng(dest.latitude, dest.longitude))
-                                        .width(5).color(Color.BLUE).geodesic(true));
+                                        .width(10).color(Color.rgb(33, 150, 243)).geodesic(true));
                             }
 //
 
@@ -257,6 +257,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                         sendWear();
                         startServiceMethod();
+
+                        focusLocation();
 
                     }
                 },
@@ -592,5 +594,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+
+    void focusLocation(){
+
+        if (mMyLocation != null) {
+            Log.d("MapsActivity","focusLocation");
+
+            //LatLng latLng =  new LatLng(mMyLocation.getLatitude(), mMyLocation.getLongitude());
+
+            double origin_latitude = Double.parseDouble(sharedPreferences.getString("origin_latitude",null));
+            double origin_longitude = Double.parseDouble(sharedPreferences.getString("origin_longitude",null));
+
+            double dest_latitude = dest.latitude;
+            double dest_longitude = dest.longitude;
+
+            double center_latitude = (origin_latitude + dest_latitude)/2;
+            double center_longitude = (origin_longitude + dest_longitude)/2;
+
+            LatLng center = new LatLng(center_latitude,center_longitude);
+
+
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(center, 14.0f);
+            mMap.animateCamera(cameraUpdate);
+        }
+
+    };
 
 }
