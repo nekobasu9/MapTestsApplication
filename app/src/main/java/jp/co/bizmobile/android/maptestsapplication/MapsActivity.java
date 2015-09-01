@@ -314,7 +314,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
 
         Notification.Builder builder = new Notification.Builder(getApplicationContext());
-        builder.setContentIntent(contentIntent);
+        //builder.setContentIntent(contentIntent);
         builder.setTicker("Ticker");
         builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setContentTitle("ContentTitle");
