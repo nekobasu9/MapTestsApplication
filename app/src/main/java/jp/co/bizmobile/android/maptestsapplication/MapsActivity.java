@@ -102,10 +102,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        sharedPreferences = getSharedPreferences("maps", Context.MODE_MULTI_PROCESS);
         setUpMapIfNeeded();
 
 
-        sharedPreferences = getSharedPreferences("maps",Context.MODE_MULTI_PROCESS);
 
 
         mGoogleApiClient = new GoogleApiClient
@@ -116,8 +116,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .build();
 
 
-        mMap.setMyLocationEnabled(true);
-        mMap.getMyLocation();
+        //mMap.setMyLocationEnabled(true);
+        //mMap.getMyLocation();
 
         markerPoints = new ArrayList<LatLng>();
 
@@ -133,9 +133,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.d("origin", "" + origin);
                 mMyLocation = location;
                 if (mMyLocation != null && mMyLocationCentering == false) { // 一度だけ現在地を画面中央に表示する
-                    mMyLocationCentering = true;
-                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(mMyLocation.getLatitude(), mMyLocation.getLongitude()), 14.0f);
-                    mMap.animateCamera(cameraUpdate);
+                    //mMyLocationCentering = true;
+                    //CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(mMyLocation.getLatitude(), mMyLocation.getLongitude()), 14.0f);
+                    //mMap.animateCamera(cameraUpdate);
 
 // 逆ジオコーディングで現在地の住所を取得する
                 }
@@ -532,10 +532,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     private void setUpMap() {
 
-//        LatLng sydney = new LatLng(-33.867, 151.206);
-//
-//        mMap.setMyLocationEnabled(true);
-//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 13));//mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        String s= sharedPreferences.getString("origin_latitude", null);
+        Log.d("set",s);
+        if (sharedPreferences.getString("origin_latitude", null) != null) {
+
+
+            double origin_latitude = Double.parseDouble(sharedPreferences.getString("origin_latitude", null));
+            double origin_longitude = Double.parseDouble(sharedPreferences.getString("origin_longitude", null));
+
+            LatLng start = new LatLng(origin_latitude, origin_longitude);
+
+            mMap.setMyLocationEnabled(true);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(start, 13));//mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+
+        }
     }
     @Override
     public void onMapReady(GoogleMap map) {
