@@ -3,11 +3,16 @@ package jp.co.bizmobile.android.maptestsapplication;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
@@ -86,6 +91,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String stepsFirstDistanceText;
     int stepsFirstDistanceValue = 0;
     String manuever;
+
+    final int NOTIFICATION_CLICK = 9;
+
+    NotificationManager notificationManager;
 
     LocationManager locationManager;
 
@@ -191,7 +200,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 stopService(new Intent(MapsActivity.this,MyService.class));
 
-                Toast.makeText(MapsActivity.this, TAG + ": Alarmキャンセル！", Toast.LENGTH_SHORT).show();
+                if(notificationManager!=null){
+                    notificationManager.cancel(NOTIFICATION_CLICK);
+                }
+
+                //Toast.makeText(MapsActivity.this, TAG + ": Alarmキャンセル！", Toast.LENGTH_SHORT).show();
                 Log.d("cancel", "cancel");
             }
         });
@@ -260,6 +273,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         startServiceMethod();
 
                         focusLocation();
+                        //startfocusLocation();
 
                     }
                 },
@@ -284,6 +298,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Toast.makeText(MapsActivity.this, "Start Alarm!", Toast.LENGTH_SHORT).show();
         Log.d(TAG,"alarmStart");
 
+
+    }
+
+    void setNotification(){
+
+        int REQUEST_CODE_MAIN_ACTIVITY = 1;
+        Intent intent = new Intent(MapsActivity.this, MapsActivity.class);
+
+
+        //Intent notifyintent = new Intent(getApplicationContext(),MapsActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(MapsActivity.this, REQUEST_CODE_MAIN_ACTIVITY, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+
+        Notification.Builder builder = new Notification.Builder(getApplicationContext());
+        builder.setContentIntent(contentIntent);
+        builder.setTicker("Ticker");
+        builder.setContentTitle("ContentTitle");
+        builder.setContentText("ContentText");
+        builder.setLargeIcon(largeIcon);
+        builder.setWhen(System.currentTimeMillis());
+        //builder.setAutoCancel(true);
+        notificationManager = (NotificationManager)getSystemService(Service.NOTIFICATION_SERVICE);
+        notificationManager.notify(NOTIFICATION_CLICK, builder.build());
 
     }
 
@@ -595,6 +633,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    void startfocusLocation(){
+
+
+        double origin_latitude = Double.parseDouble(sharedPreferences.getString("origin_latitude",null));
+        double origin_longitude = Double.parseDouble(sharedPreferences.getString("origin_longitude",null));
+
+        LatLng center = new LatLng(origin_latitude,origin_longitude);
+
+        if (center != null ) { // 一度だけ現在地を画面中央に表示する
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(center, 14.0f);
+            mMap.animateCamera(cameraUpdate);
+        }
+    }
 
     void focusLocation(){
 
@@ -622,7 +673,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             builder.include(posOrigin);
             builder.include(posdest);
 
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(builder.build(),70);
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(builder.build(),180);
 
             //CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(center, 14.0f);
             mMap.animateCamera(cameraUpdate);
