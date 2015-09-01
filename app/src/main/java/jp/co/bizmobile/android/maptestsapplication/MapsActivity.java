@@ -243,7 +243,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             /*
                             DEBUG
                              */
-                            Log.d("responsJson", response.toString(4));
+                            //Log.d("responsJson", response.toString(4));
 
 
                             sharedPreferences.edit().putString("directionData", jsonInstanceString).apply();
@@ -273,6 +273,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         startServiceMethod();
 
                         focusLocation();
+                        setNotification();
                         //startfocusLocation();
 
                     }
@@ -299,14 +300,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.d(TAG,"alarmStart");
 
 
+
     }
 
     void setNotification(){
+        Log.d("Maps","setNotification");
 
         int REQUEST_CODE_MAIN_ACTIVITY = 1;
         Intent intent = new Intent(MapsActivity.this, MapsActivity.class);
-
-
         //Intent notifyintent = new Intent(getApplicationContext(),MapsActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(MapsActivity.this, REQUEST_CODE_MAIN_ACTIVITY, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -315,6 +316,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Notification.Builder builder = new Notification.Builder(getApplicationContext());
         builder.setContentIntent(contentIntent);
         builder.setTicker("Ticker");
+        builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setContentTitle("ContentTitle");
         builder.setContentText("ContentText");
         builder.setLargeIcon(largeIcon);
