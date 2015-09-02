@@ -56,9 +56,9 @@ import java.util.List;
 /**
  * Created by shotaroyoshida on 2015/08/19.
  */
-public class GetRoot extends Activity implements
-        LocationListener {
-
+public class GetRoot extends Activity //implements
+        //LocationListener {
+{
     private RequestQueue mQueue;
     Gson gson;
     private GoogleMap mMap;
@@ -98,6 +98,8 @@ public class GetRoot extends Activity implements
 
         String url = getDirectionsUrl();
 
+        Log.d("getRootURL",url);
+
         mQueue = Volley.newRequestQueue(context);
         mQueue.add(new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -109,6 +111,9 @@ public class GetRoot extends Activity implements
 
                             gson = new Gson();
                             String jsonInstanceString = gson.toJson(response);
+
+
+                            Log.d("responsJson", response.toString(4));
 
                             sharedPreferences.edit().putString("directionData", jsonInstanceString).apply();
 
@@ -208,52 +213,52 @@ public class GetRoot extends Activity implements
 
 
 
-    @Override
-    public void onLocationChanged(Location location){
+//    @Override
+//    public void onLocationChanged(Location location){
+//
+//        if(location != null) {
+//            origin = new LatLng(location.getLatitude(), location.getLongitude());
+//            //String str = String.valueOf(origin.latitude);
+//            //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//            sharedPreferences = context.getSharedPreferences("maps",Context.MODE_MULTI_PROCESS);
+//
+//            sharedPreferences.edit().putString("origin_latitude",String.valueOf(origin.latitude)).apply();
+//            sharedPreferences.edit().putString("origin_longitude",String.valueOf(origin.longitude)).apply();
+//
+//            root();
+//        }
+//
+//    }
 
-        if(location != null) {
-            origin = new LatLng(location.getLatitude(), location.getLongitude());
-            //String str = String.valueOf(origin.latitude);
-            //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-            sharedPreferences = context.getSharedPreferences("maps",Context.MODE_MULTI_PROCESS);
 
-            sharedPreferences.edit().putString("origin_latitude",String.valueOf(origin.latitude)).apply();
-            sharedPreferences.edit().putString("origin_longitude",String.valueOf(origin.longitude)).apply();
+//    @Override
+//    public void onProviderEnabled(String provider){
+//
+//    }
+//
+//    @Override
+//    public void onProviderDisabled(String provider) {
+//
+//    }
 
-            root();
-        }
-
-    }
-
-
-    @Override
-    public void onProviderEnabled(String provider){
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras){
-
-        switch (status) {
-            case LocationProvider.AVAILABLE:
-//                text += "LocationProvider.AVAILABLE\n";
-//                textView.setText(text);
-
-                break;
-            case LocationProvider.OUT_OF_SERVICE:
-//                text += "LocationProvider.OUT_OF_SERVICE\n";
-//                textView.setText(text);
-                break;
-            case LocationProvider.TEMPORARILY_UNAVAILABLE:
-//                text += "LocationProvider.TEMPORARILY_UNAVAILABLE\n";
-//                textView.setText(text);
-                break;
-        }
-
-    }
+//    @Override
+//    public void onStatusChanged(String provider, int status, Bundle extras){
+//
+//        switch (status) {
+//            case LocationProvider.AVAILABLE:
+////                text += "LocationProvider.AVAILABLE\n";
+////                textView.setText(text);
+//
+//                break;
+//            case LocationProvider.OUT_OF_SERVICE:
+////                text += "LocationProvider.OUT_OF_SERVICE\n";
+////                textView.setText(text);
+//                break;
+//            case LocationProvider.TEMPORARILY_UNAVAILABLE:
+////                text += "LocationProvider.TEMPORARILY_UNAVAILABLE\n";
+////                textView.setText(text);
+//                break;
+//        }
+//
+//    }
 }
