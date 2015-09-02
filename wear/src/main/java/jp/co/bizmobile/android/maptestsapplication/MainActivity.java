@@ -45,6 +45,10 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
     TextView Html_instructionsListText;
 
+    TextView stepsFirstDurationValueView;
+
+    TextView requestTimeView;
+
     TextView countView;
 
     ImageView imageView;
@@ -58,6 +62,9 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
     String stepsFirstDistanceText = null;
     int stepsFirstDistanceValue = 0;
     String manuever;
+
+    int requestTime = 0;
+    int stepsFirstDurationValue = 0;
 
     DicideManeuver dicideManeuver;
 
@@ -90,7 +97,12 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
         countView = (TextView)findViewById(R.id.textView6);
 
+        stepsFirstDurationValueView = (TextView)findViewById(R.id.textView7);
+
+        requestTimeView = (TextView)findViewById(R.id.textView8);
+
         imageView = (ImageView)findViewById(R.id.imageView);
+
 
 
         dicideManeuver = new DicideManeuver();
@@ -140,7 +152,10 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
             imageView.setColorFilter(0xccffffff, PorterDuff.Mode.SRC_IN);
 
+            stepsFirstDurationValueView.setTextColor(getResources().getColor(android.R.color.white));
 
+
+            requestTimeView.setTextColor(getResources().getColor(android.R.color.white));
 
         } else {
             mContainerView.setBackground(null);
@@ -156,6 +171,8 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
             imageView.setColorFilter(0xcc000000, PorterDuff.Mode.SRC_IN);
 
             countView.setTextColor(getResources().getColor(android.R.color.black));
+            stepsFirstDurationValueView.setTextColor(getResources().getColor(android.R.color.black));
+            requestTimeView.setTextColor(getResources().getColor(android.R.color.black));
         }
     }
 
@@ -185,10 +202,15 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
             int drawa = dicideManeuver.jadgeManeuver(manuever);
 
-            Log.d("drawa",""+drawa);
+            Log.d("drawa", "" + drawa);
             imageView.setImageResource(drawa);
 
-            countView.setText("count"+count);
+            countView.setText("count" + count);
+
+            stepsFirstDurationValueView.setText("dv:"+stepsFirstDurationValue);
+
+            requestTimeView.setText("req:"+requestTime);
+
         }
     }
 
@@ -212,6 +234,12 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
                     stepsFirstDistanceText = dataMap.getString("stepsFirstDistanceText");
                     stepsFirstDistanceValue = dataMap.getInt("stepsFirstDistanceValue");
                     manuever = dataMap.getString("manuever");
+
+                    requestTime = dataMap.getInt("requestTime");
+
+
+                    stepsFirstDurationValue = dataMap.getInt("stepsFirstDurationValue");
+
                     Log.d("MainActivity",manuever);
 
                     count = dataMap.getInt("count");

@@ -89,6 +89,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String legsDurationText;
     String stepsFirstDurationText;
     String stepsFirstDistanceText;
+    int stepsFirstDurationValue = 0;
     int stepsFirstDistanceValue = 0;
     String manuever;
 
@@ -342,6 +343,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         stepsFirstDistanceText = sharedPreferences.getString("stepsFirstDistanceText", null);
         stepsFirstDistanceValue = sharedPreferences.getInt("stepsFirstDistanceValue", 0);
 
+        stepsFirstDurationValue = sharedPreferences.getInt("stepsFirstDurationValue",0);
+
         manuever = sharedPreferences.getString("maneuver", null);
 
         for(int i= 0 ; i<Html_instructionsList.length - 1; i++) {
@@ -362,6 +365,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mapReq.getDataMap().putString("stepsFirstDistanceText", stepsFirstDistanceText);
                 mapReq.getDataMap().putInt("stepsFirstDistanceValue", stepsFirstDistanceValue);
                 mapReq.getDataMap().putString("manuever", manuever);
+                mapReq.getDataMap().putInt("stepsFirstDurationValue",stepsFirstDurationValue);
 
 
                 PutDataRequest request = mapReq.asPutDataRequest();
@@ -532,8 +536,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     private void setUpMap() {
 
-        String s= sharedPreferences.getString("origin_latitude", null);
-        Log.d("set",s);
+       // String s= sharedPreferences.getString("origin_latitude", null);
+       // Log.d("set",s);
         if (sharedPreferences.getString("origin_latitude", null) != null) {
 
 

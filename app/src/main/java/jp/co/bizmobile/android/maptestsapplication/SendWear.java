@@ -42,6 +42,10 @@ public class SendWear implements GoogleApiClient.ConnectionCallbacks,
     String stepsFirstDistanceText;
     String manuever;
     int count = 0;
+    int stepsFirstDurationValue;
+    int stepsFirstDistanceValue;
+
+    int requestTime;
 
     private static final String TAG = "SendWear";
 
@@ -84,10 +88,20 @@ public class SendWear implements GoogleApiClient.ConnectionCallbacks,
         legsDistanceText = sharedPreferences.getString("legsDistanceText", null);
         legsDurationText = sharedPreferences.getString("legsDurationText", null);
 
-        stepsFirstDurationText = sharedPreferences.getString("stepsFirstDurationText",null);
-        stepsFirstDistanceText = sharedPreferences.getString("stepsFirstDistanceText",null);
+        stepsFirstDurationText = sharedPreferences.getString("stepsFirstDurationText", null);
+        stepsFirstDistanceText = sharedPreferences.getString("stepsFirstDistanceText", null);
+        stepsFirstDurationValue = sharedPreferences.getInt("stepsFirstDurationValue", 0);
+
+        stepsFirstDistanceValue = sharedPreferences.getInt("stepsFirstDistanceValue", 0);
 
         manuever = sharedPreferences.getString("maneuver", null);
+
+        requestTime = sharedPreferences.getInt("requestTime", 0);
+
+        Log.d("requestTime4",""+requestTime);
+        requestTime = requestTime / 1000;
+
+        Log.d("requestTime5",""+requestTime);
 
         for(int i= 0 ; i<Html_instructionsList.length - 1; i++) {
             Log.d("Html_instructionsList", Html_instructionsList[i]);
@@ -106,6 +120,12 @@ public class SendWear implements GoogleApiClient.ConnectionCallbacks,
                 mapReq.getDataMap().putString("stepsFirstDurationText", stepsFirstDurationText);
                 mapReq.getDataMap().putString("stepsFirstDistanceText", stepsFirstDistanceText);
                 mapReq.getDataMap().putString("manuever",manuever);
+
+                mapReq.getDataMap().putInt("stepsFirstDistanceValue", stepsFirstDistanceValue);
+
+                mapReq.getDataMap().putInt("stepsFirstDurationValue",stepsFirstDurationValue);
+
+                mapReq.getDataMap().putInt("requestTime",requestTime);
 
                 mapReq.getDataMap().putInt("count",count);
                 PutDataRequest request = mapReq.asPutDataRequest();
