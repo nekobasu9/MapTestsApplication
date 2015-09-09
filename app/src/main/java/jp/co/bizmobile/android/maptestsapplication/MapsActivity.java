@@ -117,7 +117,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .build();
 
 
-        //mMap.setMyLocationEnabled(true);
+        mMap.setMyLocationEnabled(true);
         //mMap.getMyLocation();
 
         markerPoints = new ArrayList<LatLng>();
