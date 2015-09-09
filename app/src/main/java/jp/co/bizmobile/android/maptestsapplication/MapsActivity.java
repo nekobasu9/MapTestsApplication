@@ -345,6 +345,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         stepsFirstDurationValue = sharedPreferences.getInt("stepsFirstDurationValue",0);
 
+
         manuever = sharedPreferences.getString("maneuver", null);
 
         for(int i= 0 ; i<Html_instructionsList.length - 1; i++) {
