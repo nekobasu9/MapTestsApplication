@@ -113,7 +113,7 @@ public class GetRoot extends Activity //implements
                             String jsonInstanceString = gson.toJson(response);
 
 
-                            Log.d("responsJson", response.toString(4));
+                            //Log.d("responsJson", response.toString(4));
 
                             sharedPreferences.edit().putString("directionData", jsonInstanceString).apply();
 
