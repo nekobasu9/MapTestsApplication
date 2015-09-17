@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">MapTestsApplication</string>
-    <string name="title_activity_maps">Map_distance</string>
+    <string name="title_activity_maps">Map_debug</string>
 </resources>

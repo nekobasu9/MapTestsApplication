@@ -53,8 +53,6 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
     ImageView imageView;
 
-    TextView stepsFirstDistanceValueView;
-
 
     GoogleApiClient mGoogleApiClient;
     String[] Html_instructionsList = null;
@@ -89,22 +87,19 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
                 .addApi(Wearable.API)
                 .build();
 
-        //legsDistanceTextView = (TextView)findViewById(R.id.textView1);
-        //legsDurationTextView = (TextView)findViewById(R.id.textView2);
+        legsDistanceTextView = (TextView)findViewById(R.id.textView1);
+        legsDurationTextView = (TextView)findViewById(R.id.textView2);
 
         stepsFirstDistanceTextView = (TextView)findViewById(R.id.textView3);
         stepsFirstDurationTextView = (TextView)findViewById(R.id.textView4);
 
         Html_instructionsListText = (TextView)findViewById(R.id.textView5);
 
+        countView = (TextView)findViewById(R.id.textView6);
 
-        stepsFirstDistanceValueView = (TextView)findViewById(R.id.textView);
+        stepsFirstDurationValueView = (TextView)findViewById(R.id.textView7);
 
-        //countView = (TextView)findViewById(R.id.textView6);
-
-        //stepsFirstDurationValueView = (TextView)findViewById(R.id.textView7);
-
-        //requestTimeView = (TextView)findViewById(R.id.textView8);
+        requestTimeView = (TextView)findViewById(R.id.textView8);
 
         imageView = (ImageView)findViewById(R.id.imageView);
 
@@ -145,21 +140,19 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
         if (isAmbient()) {
             mContainerView.setBackgroundColor(getResources().getColor(android.R.color.black));
 
-            //legsDistanceTextView.setTextColor(getResources().getColor(android.R.color.white));
-            //legsDurationTextView.setTextColor(getResources().getColor(android.R.color.white));
+            legsDistanceTextView.setTextColor(getResources().getColor(android.R.color.white));
+            legsDurationTextView.setTextColor(getResources().getColor(android.R.color.white));
 
             stepsFirstDistanceTextView.setTextColor(getResources().getColor(android.R.color.white));
             stepsFirstDurationTextView.setTextColor(getResources().getColor(android.R.color.white));
 
             Html_instructionsListText.setTextColor(getResources().getColor(android.R.color.white));
 
-            //countView.setTextColor(getResources().getColor(android.R.color.white));
+            countView.setTextColor(getResources().getColor(android.R.color.white));
 
             imageView.setColorFilter(0xccffffff, PorterDuff.Mode.SRC_IN);
 
-            stepsFirstDistanceValueView.setTextColor(getResources().getColor(android.R.color.white));
-
-            //stepsFirstDurationValueView.setTextColor(getResources().getColor(android.R.color.white));
+            stepsFirstDurationValueView.setTextColor(getResources().getColor(android.R.color.white));
 
 
             requestTimeView.setTextColor(getResources().getColor(android.R.color.white));
@@ -167,8 +160,8 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
         } else {
             mContainerView.setBackground(null);
 
-            //legsDistanceTextView.setTextColor(getResources().getColor(android.R.color.black));
-            //legsDurationTextView.setTextColor(getResources().getColor(android.R.color.black));
+            legsDistanceTextView.setTextColor(getResources().getColor(android.R.color.black));
+            legsDurationTextView.setTextColor(getResources().getColor(android.R.color.black));
 
             stepsFirstDistanceTextView.setTextColor(getResources().getColor(android.R.color.black));
             stepsFirstDurationTextView.setTextColor(getResources().getColor(android.R.color.black));
@@ -177,11 +170,9 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
             imageView.setColorFilter(0xcc000000, PorterDuff.Mode.SRC_IN);
 
-            stepsFirstDistanceValueView.setTextColor(getResources().getColor(android.R.color.black));
-
-            //countView.setTextColor(getResources().getColor(android.R.color.black));
-            //stepsFirstDurationValueView.setTextColor(getResources().getColor(android.R.color.black));
-            //requestTimeView.setTextColor(getResources().getColor(android.R.color.black));
+            countView.setTextColor(getResources().getColor(android.R.color.black));
+            stepsFirstDurationValueView.setTextColor(getResources().getColor(android.R.color.black));
+            requestTimeView.setTextColor(getResources().getColor(android.R.color.black));
         }
     }
 
@@ -195,13 +186,11 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
         if(Html_instructionsList.length > 0){
 
-            //legsDistanceTextView.setText("着:"+legsDistanceText);
-            //legsDurationTextView.setText(":"+legsDurationText);
+            legsDistanceTextView.setText("着:"+legsDistanceText);
+            legsDurationTextView.setText(":"+legsDurationText);
 
             stepsFirstDistanceTextView.setText("次:"+stepsFirstDistanceText);
-            stepsFirstDurationTextView.setText("次:" + stepsFirstDurationText);
-
-            stepsFirstDistanceValueView.setText("次:"+stepsFirstDistanceValue);
+            stepsFirstDurationTextView.setText(":"+stepsFirstDurationText);
 
             String str ="";
 
@@ -216,11 +205,11 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
             Log.d("drawa", "" + drawa);
             imageView.setImageResource(drawa);
 
-            //countView.setText("count" + count);
+            countView.setText("count" + count);
 
-            //stepsFirstDurationValueView.setText("dv:"+stepsFirstDurationValue);
+            stepsFirstDurationValueView.setText("dv:"+stepsFirstDurationValue);
 
-            //requestTimeView.setText("req:"+requestTime);
+            requestTimeView.setText("req:"+requestTime);
 
         }
     }
