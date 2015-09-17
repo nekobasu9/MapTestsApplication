@@ -614,7 +614,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         super.onDestroy();
 
-        Log.d(TAG, "onStop()");
+        Log.d(TAG, "onDestroy()");
 
     }
 
