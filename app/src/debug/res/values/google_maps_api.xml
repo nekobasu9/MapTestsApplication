@@ -15,8 +15,9 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <!--mac-->
     <!--AIzaSyDpf9HtntgiKwdfOb5JV_u5gVIlvZlsA0k-->
     <!--surfaceAIzaSyDvp2ka5gK9nNxCT7VvvkntZiOqeRkEAWc-->
+    <!--shotaromac-->
+    <!--AIzaSyANNi9IlTdKZ6e3wWviR_WWlKzqHTP1_Ro-->
     <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">
-
-        AIzaSyDpf9HtntgiKwdfOb5JV_u5gVIlvZlsA0k
+AIzaSyANNi9IlTdKZ6e3wWviR_WWlKzqHTP1_Ro
     </string>
 </resources>
