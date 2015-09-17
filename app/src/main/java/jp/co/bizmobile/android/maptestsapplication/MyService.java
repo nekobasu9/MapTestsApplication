@@ -53,6 +53,7 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
 
     Handler handler = null;
     GetRoot getRoot = null;
+    final int MAXREQUESTTIMES = 180000;
 
     @Override
     public void onCreate() {
@@ -71,7 +72,7 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
                 .build();
         mLocationRequest = new LocationRequest();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
+        mLocationRequest.setInterval(MAXREQUESTTIMES);
 
         mGoogleApiClient.connect();
 
