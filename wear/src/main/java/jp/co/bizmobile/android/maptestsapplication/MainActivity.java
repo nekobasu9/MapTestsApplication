@@ -51,6 +51,10 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
     TextView countView;
 
+    TextView origin_latitudeView;
+    TextView origin_longitudeView;
+
+
     ImageView imageView;
 
 
@@ -62,6 +66,8 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
     String stepsFirstDistanceText = null;
     int stepsFirstDistanceValue = 0;
     String manuever;
+    String origin_latitude;
+    String origin_longitude;
 
     int requestTime = 0;
     int stepsFirstDurationValue = 0;
@@ -102,6 +108,9 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
         requestTimeView = (TextView)findViewById(R.id.textView8);
 
         imageView = (ImageView)findViewById(R.id.imageView);
+
+        origin_latitudeView = (TextView)findViewById(R.id.textView9);
+        origin_longitudeView = (TextView)findViewById(R.id.textView10);
 
 
 
@@ -207,9 +216,12 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
 
             countView.setText("count" + count);
 
-            stepsFirstDurationValueView.setText("dv:"+stepsFirstDurationValue);
+            stepsFirstDurationValueView.setText("dv:" + stepsFirstDurationValue);
 
             requestTimeView.setText("req:"+requestTime);
+
+            origin_latitudeView.setText("lat:"+origin_latitude);
+            origin_longitudeView.setText("long:"+origin_longitude);
 
         }
     }
@@ -245,6 +257,10 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
                     count = dataMap.getInt("count");
 
                     Log.d("legsDistanceText",legsDistanceText);
+
+                    origin_latitude = dataMap.getString("origin_latitude");
+                    origin_longitude = dataMap.getString("origin_longitude");
+
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

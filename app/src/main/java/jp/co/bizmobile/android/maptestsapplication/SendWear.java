@@ -45,6 +45,9 @@ public class SendWear implements GoogleApiClient.ConnectionCallbacks,
     int stepsFirstDurationValue;
     int stepsFirstDistanceValue;
 
+    String origin_latitude;
+    String origin_longitude;
+
     int requestTime;
 
     private static final String TAG = "SendWear";
@@ -98,6 +101,9 @@ public class SendWear implements GoogleApiClient.ConnectionCallbacks,
 
         requestTime = sharedPreferences.getInt("requestTime", 0);
 
+        origin_latitude = sharedPreferences.getString("origin_latitude", null);
+        origin_longitude = sharedPreferences.getString("origin_longitude", null);
+
         Log.d("requestTime4",""+requestTime);
         requestTime = requestTime / 1000;
 
@@ -119,7 +125,7 @@ public class SendWear implements GoogleApiClient.ConnectionCallbacks,
                 mapReq.getDataMap().putString("legsDurationText", legsDurationText);
                 mapReq.getDataMap().putString("stepsFirstDurationText", stepsFirstDurationText);
                 mapReq.getDataMap().putString("stepsFirstDistanceText", stepsFirstDistanceText);
-                mapReq.getDataMap().putString("manuever",manuever);
+                mapReq.getDataMap().putString("manuever", manuever);
 
                 mapReq.getDataMap().putInt("stepsFirstDistanceValue", stepsFirstDistanceValue);
 
@@ -128,6 +134,10 @@ public class SendWear implements GoogleApiClient.ConnectionCallbacks,
                 mapReq.getDataMap().putInt("requestTime",requestTime);
 
                 mapReq.getDataMap().putInt("count",count);
+
+                mapReq.getDataMap().putString("origin_latitude",origin_latitude);
+                mapReq.getDataMap().putString("origin_longitude",origin_longitude);
+
                 PutDataRequest request = mapReq.asPutDataRequest();
                 if (!mGoogleApiClient.isConnected()) {
                     Log.d("sendwear","noConnected");

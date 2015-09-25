@@ -198,7 +198,7 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
         Log.d("requestTime1",""+requestTime);
 
         if(requestTime<30){
-            requestTime = 10;
+            requestTime = 5;
         }
 
 //        if (stepsFirstDurationValue <= 120){
