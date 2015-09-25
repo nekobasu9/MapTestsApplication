@@ -123,7 +123,7 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
     @Override
     public void onLocationChanged(Location location){
 
-        Log.d("change", "change");
+        Log.d("onLocationChange", "change");
 
         if(location != null) {
             origin = new LatLng(location.getLatitude(), location.getLongitude());
@@ -133,6 +133,8 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
             sharedPreferences.edit().putString("origin_latitude", String.valueOf(origin.latitude)).apply();
             sharedPreferences.edit().putString("origin_longitude", String.valueOf(origin.longitude)).apply();
 
+            Log.d("origin_latitude",String.valueOf(origin.latitude));
+            Log.d("origin_longitude",String.valueOf(origin.longitude));
 
 
             getRoot.root();
@@ -215,11 +217,13 @@ public class MyService extends Service implements GoogleApiClient.ConnectionCall
         Log.d("requestTime2",String.valueOf(requestTime));
         requestTime *=1000;
         Log.d("requestTime3",""+requestTime);
-        //mLocationRequest.setInterval(requestTime);
 
         sharedPreferences.edit().putInt("requestTime", requestTime).apply();
 
 
+        //お試し
+        int requestTime01 = requestTime + 500;
+        mLocationRequest.setInterval(requestTime);
 
 
 
