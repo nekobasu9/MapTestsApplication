@@ -82,6 +82,7 @@ public class GetRoot extends Activity //implements
 
         context = appContext;
         sendWear = new SendWear(context);
+        mQueue = Volley.newRequestQueue(context);
 
     }
 
@@ -100,7 +101,7 @@ public class GetRoot extends Activity //implements
 
         Log.d("getRootURL",url);
 
-        mQueue = Volley.newRequestQueue(context);
+//        mQueue = Volley.newRequestQueue(context);
         mQueue.add(new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -113,7 +114,7 @@ public class GetRoot extends Activity //implements
                             String jsonInstanceString = gson.toJson(response);
 
 
-                            Log.d("responsJson", response.toString(4));
+                            //Log.d("responsJson", response.toString(4));
 
                             sharedPreferences.edit().putString("directionData", jsonInstanceString).apply();
 
