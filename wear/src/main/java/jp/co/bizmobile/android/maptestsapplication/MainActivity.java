@@ -198,7 +198,12 @@ public class MainActivity extends WearableActivity implements GoogleApiClient.Co
             legsDistanceTextView.setText("着:"+legsDistanceText);
             legsDurationTextView.setText(":"+legsDurationText);
 
-            stepsFirstDistanceTextView.setText("次:"+stepsFirstDistanceText);
+            if(stepsFirstDistanceValue < 200){
+                stepsFirstDistanceTextView.setText("次:"+stepsFirstDistanceValue+"m");
+            }else{
+                stepsFirstDistanceTextView.setText("次:"+stepsFirstDistanceText);
+            }
+
             stepsFirstDurationTextView.setText(":"+stepsFirstDurationText);
 
             String str ="";
