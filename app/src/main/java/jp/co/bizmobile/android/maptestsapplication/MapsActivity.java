@@ -107,6 +107,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setUpMapIfNeeded();
 
 
+        mQueue = Volley.newRequestQueue(this);
 
 
         mGoogleApiClient = new GoogleApiClient
@@ -226,7 +227,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.d("MapsActivity","root");
         String url = getDirectionsUrl();
 
-        mQueue = Volley.newRequestQueue(this);
+        //mQueue = Volley.newRequestQueue(this);
         mQueue.add(new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -344,6 +345,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         stepsFirstDistanceValue = sharedPreferences.getInt("stepsFirstDistanceValue", 0);
 
         stepsFirstDurationValue = sharedPreferences.getInt("stepsFirstDurationValue",0);
+
 
         manuever = sharedPreferences.getString("maneuver", null);
 
@@ -613,7 +615,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         super.onDestroy();
 
-        Log.d(TAG, "onStop()");
+        Log.d(TAG, "onDestroy()");
 
     }
 
