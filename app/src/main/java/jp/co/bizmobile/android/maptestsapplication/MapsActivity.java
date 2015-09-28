@@ -107,6 +107,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setUpMapIfNeeded();
 
 
+        mQueue = Volley.newRequestQueue(this);
 
 
         mGoogleApiClient = new GoogleApiClient
@@ -117,7 +118,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .build();
 
 
-        //mMap.setMyLocationEnabled(true);
+        mMap.setMyLocationEnabled(true);
         //mMap.getMyLocation();
 
         markerPoints = new ArrayList<LatLng>();
@@ -226,7 +227,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.d("MapsActivity","root");
         String url = getDirectionsUrl();
 
-        mQueue = Volley.newRequestQueue(this);
+        //mQueue = Volley.newRequestQueue(this);
         mQueue.add(new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
