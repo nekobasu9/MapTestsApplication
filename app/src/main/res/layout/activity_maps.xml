@@ -16,4 +16,13 @@
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="wark"
+        android:id="@+id/switch1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:checked="false"/>
 </RelativeLayout>
