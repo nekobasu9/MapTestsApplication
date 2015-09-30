@@ -72,6 +72,7 @@ public class GetRoot extends Activity //implements
     private LatLng dest;
     SharedPreferences sharedPreferences;
     int requestTime;
+    String mode = "driving";
 
     private LocationManager locationManager;
 
@@ -164,8 +165,9 @@ public class GetRoot extends Activity //implements
         String sensor = "sensor=false";
 
         //パラメータ
-        String parameters = str_origin+"&"+str_dest+"&"+sensor + "&language=ja" + "&mode=" + "driving";
-
+//        String parameters = str_origin+"&"+str_dest+"&"+sensor + "&language=ja" + "&mode=" + "driving";
+        mode = sharedPreferences.getString("mode",null);
+        String parameters = str_origin+"&"+str_dest+"&"+sensor + "&language=ja" + "&mode=" + mode;
         //JSON指定
         String output = "json";
 
