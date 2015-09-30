@@ -23,6 +23,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -92,6 +94,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     int stepsFirstDurationValue = 0;
     int stepsFirstDistanceValue = 0;
     String manuever;
+    String mode = "driving";
+    Switch mswitch;
 
     final int NOTIFICATION_CLICK = 9;
 
@@ -208,6 +212,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 //Toast.makeText(MapsActivity.this, TAG + ": Alarmキャンセル！", Toast.LENGTH_SHORT).show();
                 Log.d("cancel", "cancel");
+            }
+        });
+
+        mswitch = (Switch)findViewById(R.id.switch1);
+        mswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked == true) {
+                    sharedPreferences.edit().putString("mode", "walking").apply();
+
+                }else{
+                    sharedPreferences.edit().putString("mode", "driving").apply();
+
+                }
             }
         });
 
@@ -482,7 +500,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //test bicycling
         //String parameters = str_origin+"&"+str_dest+"&"+sensor + "&language="+language + "&mode=" + "walking";
         //String parameters = str_origin+"&"+str_dest+"&"+"avoid=highways&"+sensor + "&language="+language + "&mode=" + "driving";
-        String parameters = str_origin+"&"+str_dest+"&"+sensor + "&language="+language + "&mode=" + "driving";
+//        String parameters = str_origin+"&"+str_dest+"&"+sensor + "&language="+language + "&mode=" + "driving";
+        mode = sharedPreferences.getString("mode",null);
+        String parameters = str_origin+"&"+str_dest+"&"+sensor + "&language="+language + "&mode=" + mode;
 //
         //JSON指定
         String output = "json";
